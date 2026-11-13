@@ -46,10 +46,11 @@ document.head.appendChild(css);
 
 function makeLink(doc){
   const download=new URL(doc.url);download.searchParams.set('forcedownload','true');
-  const type=doc.kind==='memo'?'Memorandum':doc.kind==='supplement'?'Supporting document':'Exam paper';
+  const kind=/\b(?:answer\s*books?|data files?|addendum|annexure|supplement)\b/i.test(doc.title)?'supplement':doc.kind;
+  const type=kind==='memo'?'Memorandum':kind==='supplement'?'Supporting document':'Exam paper';
   const isZip=doc.format==='ZIP'||/\.zip(?:[?#]|$)/i.test(doc.url);
   const origin=grade===12?'Department of Basic Education':doc.publisher==='Department of Basic Education'?'DBE · GEC pilot':`Eastern Cape · ${grade===9?'GEC assessment':'November exam'}`;
-  return `<article class="real-document"><div class="real-document-top"><div class="fred-cover-layout">${paperCover({grade,year,subject:doc.subject,title:doc.title,kind:doc.kind,url:doc.url})}<div class="fred-cover-content"><span class="doc-type">${type}</span><h3>${esc(doc.title)}</h3><p>Grade ${grade} · ${esc(doc.subject)} · ${origin} ${year}${doc.session&&!(grade===9&&doc.publisher==='Department of Basic Education')?` · ${esc(doc.session)}`:''}${isZip?' · ZIP archive':''}</p></div></div><div class="real-actions">${isZip?'':`<a href="${esc(doc.url)}" target="_blank" rel="noopener noreferrer">View original ↗</a>`}<a href="${esc(isZip?doc.url:download.href)}" target="_blank" rel="noopener noreferrer">Download ${isZip?'ZIP':'↓'}</a></div></div></article>`;
+  return `<article class="real-document"><div class="real-document-top"><div class="fred-cover-layout">${paperCover({grade,year,subject:doc.subject,title:doc.title,kind,url:doc.url})}<div class="fred-cover-content"><span class="doc-type">${type}</span><h3>${esc(doc.title)}</h3><p>Grade ${grade} · ${esc(doc.subject)} · ${origin} ${year}${doc.session&&!(grade===9&&doc.publisher==='Department of Basic Education')?` · ${esc(doc.session)}`:''}${isZip?' · ZIP archive':''}</p></div></div><div class="real-actions">${isZip?'':`<a href="${esc(doc.url)}" target="_blank" rel="noopener noreferrer">View original ↗</a>`}<a href="${esc(isZip?doc.url:download.href)}" target="_blank" rel="noopener noreferrer">Download ${isZip?'ZIP':'↓'}</a></div></div></article>`;
 }
 installCoverStyles();
 
