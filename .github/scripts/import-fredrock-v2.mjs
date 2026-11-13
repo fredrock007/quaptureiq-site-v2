@@ -20,7 +20,6 @@ const pages = [
 
 const assets = [
   "catalog.mjs",
-  "practice.mjs",
   "shared.mjs",
   "grade.mjs",
   "landing.mjs",
@@ -182,6 +181,7 @@ for (let index = 0; index < files.length; index += 6) {
 }
 // The legacy generated mathematics PDFs were removed at FredRock's request.
 await fs.rm("docs/papers/original", { recursive: true, force: true });
+await fs.rm("docs/assets/practice.mjs", { force: true });
 await fs.copyFile("docs/assets/official-study.mjs", "docs/assets/study.mjs");
 await import("./import-provincial.mjs");
 await fs.copyFile(".github/scripts/fredrock-search.mjs", "docs/assets/search.mjs");
