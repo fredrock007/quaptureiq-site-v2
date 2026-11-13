@@ -42,7 +42,8 @@ export async function mountYearArchivePage(year){
         if(may.ok){const mayData=await may.json();extra=mayData.documents.map(d=>({...d,session:'May/June'}));extraSource=mayData.source;}
       }catch{/* November archive is always available by itself. */}
     }
-    const docs=[...data.documents.map(d=>({...d,session:year===2026?'May/June':'November'})),...extra];
+    const subjects=new Map(data.documents.map(d=>[d.subject.toLowerCase(),d.subject]));
+    const docs=[...data.documents.map(d=>({...d,session:year===2026?'May/June':'November'})),...extra.map(d=>({...d,subject:subjects.get(d.subject.toLowerCase())||d.subject}))];
     let sessionFilter=null;
     if(extra.length){
       const slot=document.createElement('div');slot.className='field';
