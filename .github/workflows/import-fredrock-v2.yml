@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/import-fredrock-v2.yml'
+      - '.github/scripts/import-fredrock-v2.mjs'
   workflow_dispatch:
 
 permissions:
