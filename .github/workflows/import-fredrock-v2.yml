@@ -30,7 +30,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Refresh source-backed sessions and mobile paper cards
+      - name: Publish verified exams with corrected paper types
         run: node .github/scripts/import-fredrock-v2.mjs
       - name: Commit the complete website into docs/
         run: |
