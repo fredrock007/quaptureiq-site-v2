@@ -1,3 +1,4 @@
+import {mountStudyArchive2022} from './dbe-2022.mjs';
 import {YEARS,phaseForGrade,subjectForGrade,subjectCollectionUrl,gradeCollectionUrl,PLAY_URL} from './catalog.mjs';
 import {practiceFor} from './practice.mjs';
 import {promoMarkup,footerMarkup,initTesterPopup,initVisitorCounter,initHeaderTTS} from './shared.mjs';
@@ -43,6 +44,7 @@ function render(){
   ${originalPdfPanel(practice)}
   ${sourcePanel()}
   <section class="quapture-panel" aria-labelledby="study-quapture-title" style="max-width:880px;margin:26px auto 0"><div><span class="panel-kicker">Learn beyond the memo</span><h2 id="study-quapture-title">Stuck on a question?</h2><p>Take a photo with QuaptureIQ and explore an explanation. Practice first, then use the app to understand the steps.</p><div class="panel-actions"><a class="panel-btn" href="${PLAY_URL}" target="_blank" rel="noopener noreferrer">Explore QuaptureIQ ↗</a><a class="panel-link" href="mailto:quaptureiq.reviewer@gmail.com?subject=QuaptureIQ%20tester%20interest">Become a tester</a></div></div><span aria-hidden="true" style="font-size:4rem">📸</span></section>`;
+  mountStudyArchive2022({grade,subjectId:subject.id,year});
   document.getElementById('term-select').addEventListener('change',e=>{term=Number(e.target.value);updateUrl();render();});
   document.getElementById('memo-toggle').addEventListener('click',e=>{const show=e.target.getAttribute('aria-pressed')!=='true';document.querySelectorAll('.memo').forEach(el=>el.classList.toggle('visible',show));e.target.setAttribute('aria-pressed',String(show));e.target.textContent=show?'Hide memorandum':'Show memorandum';});
   document.getElementById('print-paper').addEventListener('click',()=>window.print());
