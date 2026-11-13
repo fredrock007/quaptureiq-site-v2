@@ -126,10 +126,10 @@
   <div id="site-footer-slot"></div>
   <script type="module">
     import {promoMarkup,footerMarkup,initTesterPopup,initVisitorCounter,initHeaderTTS} from '../../assets/shared.mjs';
-    import {mountDBE2022ArchivePage} from '../../assets/dbe-2022.mjs?revision=20261114';
+    import {mountYearArchivePage} from '../../assets/archive-years.mjs';
     document.getElementById('quapture-promo').innerHTML=promoMarkup();
     document.getElementById('site-footer-slot').innerHTML=footerMarkup();
-    initTesterPopup();initHeaderTTS();initVisitorCounter();mountDBE2022ArchivePage();
+    initTesterPopup();initHeaderTTS();initVisitorCounter();mountYearArchivePage(2022);
   </script>
 </body>
 </html>
