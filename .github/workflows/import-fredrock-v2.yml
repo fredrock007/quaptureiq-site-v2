@@ -30,7 +30,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Publish expanded exam sessions and paper cover thumbnails
+      - name: Refresh source-backed sessions and mobile paper cards
         run: node .github/scripts/import-fredrock-v2.mjs
       - name: Commit the complete website into docs/
         run: |
