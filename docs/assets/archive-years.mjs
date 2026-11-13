@@ -43,7 +43,7 @@ export async function mountYearArchivePage(year){
       }catch{/* November archive is always available by itself. */}
     }
     const subjects=new Map(data.documents.map(d=>[d.subject.toLowerCase(),d.subject]));
-    const docs=[...data.documents.map(d=>({...d,session:year===2026?'May/June':'November'})),...extra.map(d=>({...d,subject:subjects.get(d.subject.toLowerCase())||d.subject}))];
+    const docs=[...data.documents.map(d=>({...d,session:year===2026?'May/June':'November'})),...extra.map(d=>({...d,subject:subjects.get(d.subject.toLowerCase())||d.subject}))].map(d=>({...d,kind:/\b(?:answer\s*books?|data files?|addendum|annexure|supplement)\b/i.test(d.title)?'supplement':d.kind}));
     let sessionFilter=null;
     if(extra.length){
       const slot=document.createElement('div');slot.className='field';
