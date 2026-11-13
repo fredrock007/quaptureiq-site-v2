@@ -89,6 +89,15 @@ async function download(relativePath, isOptional = false) {
     // Update sharing previews and canonical URLs, while keeping the counter's API
     // URL in assets/shared.mjs directed to the existing cross-origin endpoint.
     contents = contents.replaceAll(source, destination);
+    if (relativePath === "index.html") {
+      const oldLink = 'href="study/?grade=12&amp;subject=mathematics&amp;term=4&amp;year=2022"';
+      const oldLabel = '2022 Grade 12 example &amp; paper archive';
+      if (!contents.includes(oldLink) || !contents.includes(oldLabel)) {
+        throw new Error("Expected 2022 home archive link is missing.");
+      }
+      contents = contents.replace(oldLink, 'href="archive/2022/"');
+      contents = contents.replace(oldLabel, '2022 official Grade 12 papers &amp; memos');
+    }
     bytes = Buffer.from(contents, "utf8");
   }
   if (relativePath === "assets/shared.mjs") {
@@ -104,6 +113,16 @@ async function download(relativePath, isOptional = false) {
     if (!contents.includes(hook)) throw new Error("Search initialization hook missing.");
     contents = "import {initExamSearch} from './search.mjs';\n" + contents;
     contents = contents.replace(hook,hook + "\n  initExamSearch();");
+    bytes = Buffer.from(contents, "utf8");
+  }
+  if (relativePath === "assets/study.mjs") {
+    let contents = bytes.toString("utf8");
+    const hook = "  document.getElementById('term-select').addEventListener";
+    if (!contents.includes(hook)) {
+      throw new Error("Expected study page rendering hook not found.");
+    }
+    contents = "import {mountStudyArchive2022} from './dbe-2022.mjs';\\n" + contents;
+    contents = contents.replace(hook, "  mountStudyArchive2022({grade,subjectId:subject.id,year});\\n" + hook);
     bytes = Buffer.from(contents, "utf8");
   }
   const outputPath = path.join("docs", relativePath);
