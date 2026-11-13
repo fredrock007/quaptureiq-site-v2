@@ -45,7 +45,9 @@ document.head.appendChild(css);
 function makeLink(doc){
   const download=new URL(doc.url);download.searchParams.set('forcedownload','true');
   const type=doc.kind==='memo'?'Memorandum':doc.kind==='supplement'?'Supporting document':'Exam paper';
-  return `<article class="real-document"><div><span class="doc-type">${type}</span><h3>${esc(doc.title)}</h3><p>Grade 12 · ${esc(doc.subject)} · ${session(year)} ${year}</p></div><div class="real-actions"><a href="${esc(doc.url)}" target="_blank" rel="noopener noreferrer">View original ↗</a><a href="${esc(download.href)}" target="_blank" rel="noopener noreferrer">Download ↓</a></div></article>`;
+  const isZip=doc.format==='ZIP'||/\.zip(?:[?#]|$)/i.test(doc.url);
+  const origin=grade===12?'Department of Basic Education':`Eastern Cape · ${grade===9?'GEC assessment':'November exam'}`;
+  return `<article class="real-document"><div><span class="doc-type">${type}</span><h3>${esc(doc.title)}</h3><p>Grade ${grade} · ${esc(doc.subject)} · ${origin} ${year}${isZip?' · ZIP archive':''}</p></div><div class="real-actions">${isZip?'':`<a href="${esc(doc.url)}" target="_blank" rel="noopener noreferrer">View original ↗</a>`}<a href="${esc(isZip?doc.url:download.href)}" target="_blank" rel="noopener noreferrer">Download ${isZip?'ZIP':'↓'}</a></div></article>`;
 }
 
 function render(){
@@ -69,6 +71,25 @@ function render(){
 
 async function loadResults(displayYear){
   const box=document.getElementById('official-results');
+  if(grade===9||grade===11){
+    try{
+      const response=await fetch(new URL('./provincial-exams.json',import.meta.url));
+      if(!response.ok)throw new Error('Provincial index unavailable');
+      const data=await response.json();
+      const docs=data.documents.filter(doc=>doc.grade===grade&&doc.year===displayYear&&doc.subjectId===subject.id)
+        .sort((a,b)=>(a.paper||99)-(b.paper||99)||a.title.localeCompare(b.title));
+      if(!box.isConnected||displayYear!==year)return;
+      const source='https://www.ecexams.co.za/ExaminationPapers.htm';
+      box.innerHTML=`<div class="real-note">🏛️ Eastern Cape examination archive · Grade ${grade} · ${grade===9?'General Education Certificate assessments':'November examinations'} · ${displayYear}.</div>
+        ${docs.length?`<p><strong>${docs.length} published source documents for ${esc(subject.name)}.</strong> Files open directly from the source. ZIP files must be extracted to access their contents.</p><div class="real-docs">${docs.map(makeLink).join('')}</div>`:
+          `<div class="real-empty"><strong>No ${displayYear} provincial papers indexed for this subject.</strong><p>Only published and identifiable sources are listed.</p></div>`}
+        <a class="real-main-link" href="${source}" target="_blank" rel="noopener noreferrer">View Eastern Cape's examination index ↗</a>
+        <p class="real-attribution">These original documents remain on the publisher's website, not on FredRock. Availability and file formats vary. ${grade===9?'GEC assessments are not the same as school term exams.':''}</p>`;
+    }catch{
+      if(box.isConnected&&displayYear===year)box.innerHTML='<div class="real-empty">The provincial document index is temporarily unavailable. <a href="https://www.ecexams.co.za/ExaminationPapers.htm" target="_blank" rel="noopener noreferrer">Browse source ↗</a></div>';
+    }
+    return;
+  }
   if(grade!==12){
     const collection=subjectCollectionUrl(grade,subject.id);
     const specific=collection!==gradeCollectionUrl(grade);
