@@ -91,6 +91,17 @@ async function download(relativePath, isOptional = false) {
     contents = contents.replaceAll(source, destination);
     bytes = Buffer.from(contents, "utf8");
   }
+  if (relativePath === "assets/shared.mjs") {
+    let contents = bytes.toString("utf8");
+    const repeatBadge = '<span class="demo-loop">↻ Repeats automatically</span>';
+    const visitorNumber = '<strong id="hero-visitor-total">3 031 500</strong>';
+    if (!contents.includes(repeatBadge) || !contents.includes(visitorNumber)) {
+      throw new Error("Expected FredRock label markup not found; refusing unrelated changes.");
+    }
+    contents = contents.replace(repeatBadge, "");
+    contents = contents.replace(visitorNumber, `${visitorNumber}<small>visits</small>`);
+    bytes = Buffer.from(contents, "utf8");
+  }
   const outputPath = path.join("docs", relativePath);
   await fs.mkdir(path.dirname(outputPath), { recursive: true });
   await fs.writeFile(outputPath, bytes);
