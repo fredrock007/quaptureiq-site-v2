@@ -5,7 +5,8 @@ const label={paper:'Question paper',memo:'Memorandum',supplement:'Supporting fil
 
 function row(doc,year){
   const download=new URL(doc.url);download.searchParams.set('forcedownload','true');
-  return `<article class="dbe-doc-row"><div><strong>${escape(doc.title)}</strong><small>${label[doc.kind]||'Official document'} · DBE ${year}</small></div><div class="dbe-doc-actions"><a href="${escape(doc.url)}" target="_blank" rel="noopener noreferrer">View ↗</a><a href="${escape(download.href)}" target="_blank" rel="noopener noreferrer">Download ↓</a></div></article>`;
+  const preview=doc.kind!=='supplement';
+  return `<article class="dbe-doc-row"><div class="dbe-doc-top"><div><strong>${escape(doc.title)}</strong><small>${label[doc.kind]||'Official document'} · DBE ${year}</small></div><div class="dbe-doc-actions">${preview?'<button class="dbe-preview-button" type="button" aria-expanded="false">Preview first page ▣</button>':''}<a href="${escape(doc.url)}" target="_blank" rel="noopener noreferrer">View ↗</a><a href="${escape(download.href)}" target="_blank" rel="noopener noreferrer">Download ↓</a></div></div>${preview?`<div class="dbe-pdf-preview" data-pdf="${escape(doc.url)}" hidden><p>Showing the original PDF from the Department of Basic Education. If your device cannot display it here, choose View.</p></div>`:''}</article>`;
 }
 export async function mountYearArchivePage(year){
   const subject=document.getElementById('archive-subject');
@@ -17,14 +18,33 @@ export async function mountYearArchivePage(year){
   const style=document.createElement('style');
   style.textContent=`
     .dbe-doc-list{display:grid;gap:9px;padding:14px}
-    .dbe-doc-row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:13px;background:#fffdf8;border:1px solid #e0e8e1;border-radius:11px}
+    .dbe-doc-row{padding:13px;background:#fffdf8;border:1px solid #e0e8e1;border-radius:11px}
+    .dbe-doc-top{display:flex;justify-content:space-between;align-items:center;gap:14px}
     .dbe-doc-row strong{display:block;color:#152a35;font-size:.94rem}
     .dbe-doc-row small{display:block;color:#668087;font-size:.79rem;margin-top:3px}
     .dbe-doc-actions{display:flex;gap:7px;flex-wrap:wrap}
-    .dbe-doc-actions a{background:#f1faf5;border:1px solid #baded0;border-radius:9px;padding:9px 11px;color:#087e78;text-decoration:none;font-size:.84rem;font-weight:850;white-space:nowrap}
-    @media(max-width:520px){.dbe-doc-row{display:block}.dbe-doc-actions{margin-top:10px}.dbe-doc-actions a{flex:1;text-align:center}}
+    .dbe-doc-actions a,.dbe-doc-actions button{background:#f1faf5;border:1px solid #baded0;border-radius:9px;padding:9px 11px;color:#087e78;text-decoration:none;font-family:inherit;font-size:.84rem;font-weight:850;white-space:nowrap;cursor:pointer}
+    .dbe-pdf-preview{border-top:1px solid #d7e5de;margin-top:13px;padding-top:12px}
+    .dbe-pdf-preview p{font-size:.8rem;color:#60757b;margin:0 0 8px}
+    .dbe-pdf-preview iframe{border:1px solid #d1dfd6;border-radius:9px;width:100%;height:min(65vh,650px);min-height:360px;background:#eee}
+    @media(max-width:520px){.dbe-doc-top{display:block}.dbe-doc-actions{margin-top:10px}.dbe-doc-actions a,.dbe-doc-actions button{flex:1;text-align:center}}
   `;
   document.head.appendChild(style);
+  result.addEventListener('click',event=>{
+    const button=event.target.closest('.dbe-preview-button');if(!button)return;
+    const preview=button.closest('.dbe-doc-row').querySelector('.dbe-pdf-preview');
+    if(!preview)return;
+    preview.hidden=!preview.hidden;
+    button.setAttribute('aria-expanded',String(!preview.hidden));
+    button.textContent=preview.hidden?'Preview first page ▣':'Hide preview ×';
+    if(!preview.hidden&&!preview.querySelector('iframe')){
+      const frame=document.createElement('iframe');
+      frame.title='Original DBE exam PDF first-page preview';
+      frame.loading='lazy';frame.referrerPolicy='no-referrer';
+      frame.src=preview.dataset.pdf+'#page=1&toolbar=0&navpanes=0';
+      preview.appendChild(frame);
+    }
+  });
   try{
     const response=await fetch(new URL(`./dbe-${year}.json`,import.meta.url));
     if(!response.ok)throw new Error('Catalogue unavailable');
