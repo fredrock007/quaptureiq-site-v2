@@ -23,11 +23,30 @@ const idFor=raw=>{
 };
 const chapterPattern=/<h[1-6]\b[^>]*>([\s\S]*?)<\/h[1-6]>/gi;
 const anchorPattern=/<a\b([^>]*\bhref\s*=\s*["']([^"']+)["'][^>]*)>([\s\S]*?)<\/a>/gi;
+async function archiveHtml(source){
+  let lastError;
+  for(let attempt=1;attempt<=4;attempt++){
+    try{
+      const response=await fetch(source,{headers:{'User-Agent':'Mozilla/5.0 FredRock-Paper-Club','Connection':'close'},signal:AbortSignal.timeout(40000)});
+      if(!response.ok)throw new Error(`HTTP ${response.status}`);
+      return await response.text();
+    }catch(error){
+      lastError=error;
+      console.warn(`Temporary DBE archive error (${attempt}/4): ${error.message}`);
+      if(attempt<4)await new Promise(resolve=>setTimeout(resolve,attempt*1200));
+    }
+  }
+  throw new Error(`Could not fetch ${source}: ${lastError.message}`);
+}
+let archiveUnavailable=false;
 for(const year of years){
   const source=website+`GEC${year}.aspx`;
-  const response=await fetch(source,{headers:{'User-Agent':'Mozilla/5.0 FredRock-Paper-Club'},signal:AbortSignal.timeout(35000)});
-  if(!response.ok)throw new Error(`GEC ${year} archive HTTP ${response.status}`);
-  const html=await response.text();
+  let html;
+  try{html=await archiveHtml(source);}catch(error){
+    console.warn(`DBE GEC live refresh unavailable: ${error.message}`);
+    archiveUnavailable=true;
+    break;
+  }
   const chapters=[...html.matchAll(chapterPattern)].map(x=>({position:x.index,label:plain(x[1]).toLowerCase()}));
   let count=0;
   for(const match of html.matchAll(anchorPattern)){
@@ -45,6 +64,14 @@ for(const year of years){
   if(count<15)throw new Error(`GEC ${year}: expected at least 15 direct PDFs, got ${count}`);
   console.log(`DBE GEC ${year}: ${count} original links`);
 }
+if(archiveUnavailable){
+  const existing=JSON.parse(await fs.readFile('docs/assets/dbe-gec.json','utf8'));
+  if(!Array.isArray(existing.documents)||existing.documents.length<140){
+    throw new Error('Cannot use existing DBE GEC index: verified backup is missing or incomplete.');
+  }
+  console.log(`Using ${existing.documents.length} previously verified DBE GEC links; preserving successful deployment.`);
+}else{
 const result={publisher:'Department of Basic Education',source:'https://www.education.gov.za/GEC2023.aspx',notice:'GEC pilot assessment resources, not standard school examination papers. All PDFs are opened on the DBE website.',documents:[...new Map(records.map(r=>[r.year+'|'+r.url,r])).values()]};
 await fs.writeFile('docs/assets/dbe-gec.json',JSON.stringify(result));
 console.log(`Direct DBE GEC resources: ${result.documents.length}`);
+}
