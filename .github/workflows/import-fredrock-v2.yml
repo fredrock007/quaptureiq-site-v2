@@ -1,0 +1,58 @@
+name: Publish FredRock Paper Club V2
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/import-fredrock-v2.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: fredrock-paper-club-v2-pages
+  cancel-in-progress: false
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the separate V2 repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Import pages, practice PDFs, and looping QuaptureIQ GIFs
+        run: node .github/scripts/import-fredrock-v2.mjs
+      - name: Commit the complete website into docs/
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs
+          if ! git diff --cached --quiet; then
+            git commit -m 'Publish FredRock Paper Club V2 website files'
+            git push
+          else
+            echo 'Website files are already up to date.'
+          fi
+      - name: Upload the GitHub Pages website
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: docs
+
+  deploy:
+    needs: import
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Deploy FredRock Paper Club V2
+        id: deployment
+        uses: actions/deploy-pages@v4
