@@ -103,6 +103,13 @@ export function initExamSearch() {
     '</div>';
   anchor.insertAdjacentElement('afterend',section);
   const form = section.querySelector('form');
+  form.action = new URL('study/',HOME).href;
+  form.method = 'get';
+  const fromSearchInput=document.createElement('input');
+  fromSearchInput.type='hidden';fromSearchInput.name='fromSearch';fromSearchInput.value='1';
+  const yearInput=document.createElement('input');
+  yearInput.type='hidden';yearInput.name='year';yearInput.value='2026';
+  form.append(fromSearchInput,yearInput);
   const gradeField = section.querySelector('#fr-search-grade');
   const subjectField = section.querySelector('#fr-search-subject');
   for (let grade=1;grade<=12;grade++) gradeField.add(new Option('Grade '+grade,String(grade)));
@@ -121,18 +128,14 @@ export function initExamSearch() {
   updateSubjects(presetSubject);
   gradeField.addEventListener('change',()=>updateSubjects());
   form.addEventListener('submit',event=>{
-    event.preventDefault();
-    if (!form.reportValidity()) return;
     const grade = Number(gradeField.value);
     const subject = subjectField.value;
-    if (!subjectsForGrade(grade).some(item=>item.id===subject)) return;
-    const target = new URL('study/',HOME);
-    target.searchParams.set('grade',String(grade));
-    target.searchParams.set('subject',subject);
-    target.searchParams.set('term',location.pathname.includes('/study/')?(params.get('term')||'1'):'1');
-    target.searchParams.set('year',location.pathname.includes('/study/')?(params.get('year')||'2026'):'2026');
-    target.searchParams.set('fromSearch','1');
-    location.assign(target.href);
+    if (!subjectsForGrade(grade).some(item=>item.id===subject)) {
+      event.preventDefault();
+      return;
+    }
+    yearInput.value=location.pathname.includes('/study/')?(params.get('year')||'2026'):'2026';
+    // Browser-native form navigation also works if script-based redirects are blocked.
   });
   revealSearchedPaper();
 }
