@@ -41,7 +41,7 @@ function showResultToast(grade, subject) {
   toast.setAttribute('role','status');
   toast.setAttribute('aria-live','polite');
   const label = document.createElement('strong');
-  label.textContent = '🎉 Exam practice paper below!';
+  label.textContent = '🎉 Exam papers below!';
   const details = document.createElement('div');
   details.style.cssText='font-size:.82rem;font-weight:650;margin-top:3px;opacity:.94';
   details.textContent = 'Grade ' + grade + ' · ' + subject.name;
@@ -66,7 +66,7 @@ function showResultToast(grade, subject) {
 function revealSearchedPaper() {
   const params = new URLSearchParams(location.search);
   if (params.get('fromSearch')!=='1') return;
-  const paper = document.querySelector('.paper-sheet');
+  const paper = document.querySelector('#official-results') || document.querySelector('#archive') || document.querySelector('.paper-sheet');
   if (!paper) return;
   const grade = Number(params.get('grade'));
   const subject = subjectsForGrade(grade).find(item=>item.id===params.get('subject'));
@@ -91,7 +91,7 @@ export function initExamSearch() {
   const section = document.createElement('section');
   section.className = 'fr-search-wrap';
   section.setAttribute('role','search');
-  section.setAttribute('aria-label','Find exam practice papers');
+  section.setAttribute('aria-label','Find genuine examination papers');
   section.innerHTML =
     '<div class="fr-search-inner">' +
       '<div class="fr-search-heading"><strong>🔎 Find an exam paper</strong><p>Choose your grade and exam subject to go straight to the paper.</p></div>' +

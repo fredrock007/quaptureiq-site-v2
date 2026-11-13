@@ -13,7 +13,7 @@ function card(subject){
   const location=`../study/?grade=${grade}&subject=${encodeURIComponent(subject.id)}&term=${term==='all'?1:term}&year=${year}`;
   const kind=subject.type==='core'?'Core subject':subject.type==='extra'?'Elective subject':'Language option';
   const tags=subject.tags.map(tag=>`<span>${esc(tag)}</span>`).join('');
-  return `<article class="subject-card"><div class="card-top"><span class="subject-icon" style="--tile:${subject.color}" aria-hidden="true">${subject.icon}</span><span class="card-category">${kind}</span></div><h3>${esc(subject.name)}</h3><p>${esc(subject.desc)}</p><div class="subject-tags">${tags}</div><a class="card-link" href="${location}" aria-label="Open on-site ${esc(subject.name)} resources">Open on-site resources <span aria-hidden="true">→</span></a><small class="card-note">Original practice + 2022–2026 source archive</small></article>`;
+  return `<article class="subject-card"><div class="card-top"><span class="subject-icon" style="--tile:${subject.color}" aria-hidden="true">${subject.icon}</span><span class="card-category">${kind}</span></div><h3>${esc(subject.name)}</h3><p>${esc(subject.desc)}</p><div class="subject-tags">${tags}</div><a class="card-link" href="${location}" aria-label="Open on-site ${esc(subject.name)} resources">Open on-site resources <span aria-hidden="true">→</span></a><small class="card-note">Genuine exam sources · availability varies</small></article>`;
 }
 function render(){
   const q=search.value.trim().toLowerCase();
@@ -44,7 +44,7 @@ search.addEventListener('input',render);
 
 document.getElementById('share-btn').addEventListener('click',async()=>{
   const button=document.getElementById('share-btn');
-  try{if(navigator.share){await navigator.share({title:`Grade ${grade} Paper Club`,text:`Free Grade ${grade} practice and paper archive`,url:location.href});return;}
+  try{if(navigator.share){await navigator.share({title:`Grade ${grade} Paper Club`,text:`Free Grade ${grade} published exam resources`,url:location.href});return;}
     if(navigator.clipboard){await navigator.clipboard.writeText(location.href);button.textContent='✓ Link copied!';setTimeout(()=>button.textContent='Share this page',2500);return;}
   }catch(e){if(e.name==='AbortError')return;}
   window.prompt('Copy this link:',location.href);
@@ -57,7 +57,7 @@ function resetAudio(){audioButton.setAttribute('aria-pressed','false');audioButt
 function activeAudio(){audioButton.setAttribute('aria-pressed','true');audioButton.setAttribute('aria-label','Stop the FredRock welcome message');audioLabel.textContent='Stop welcome audio';audioIcon.textContent='■';}
 audioButton.addEventListener('click',()=>{
   if(!window.speechSynthesis||typeof SpeechSynthesisUtterance==='undefined'){audioLabel.textContent='Audio unavailable in this browser';return;}
-  toggleFredRockSpeech(audioButton,`Welcome to Grade ${grade} Paper Club, brought to you by FredRock. Find practice questions, check your answers, and discover past paper collections from 2022 to 2026. If you need an explanation, explore QuaptureIQ. Happy learning!`,resetAudio,activeAudio);
+  toggleFredRockSpeech(audioButton,`Welcome to Grade ${grade} Paper Club, brought to you by FredRock. Find published examination papers and memorandums, where available, from 2022 to 2026. If you need an explanation, explore QuaptureIQ. Happy learning!`,resetAudio,activeAudio);
 });
 window.addEventListener('pagehide',()=>window.speechSynthesis?.cancel());
 
@@ -70,5 +70,6 @@ dialog.addEventListener('close',remember);
 dialog.querySelectorAll('.tester-actions a').forEach(a=>a.addEventListener('click',()=>dialog.close()));
 window.setTimeout(()=>{if(!dismissed()&&!dialog.open&&typeof dialog.showModal==='function'&&document.visibilityState==='visible')dialog.showModal();},5000);
 render();
+document.getElementById('term-pills')?.parentElement?.remove();
 initHeaderTTS();
 initVisitorCounter();
