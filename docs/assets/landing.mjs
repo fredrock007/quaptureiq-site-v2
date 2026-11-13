@@ -1,0 +1,11 @@
+import {promoMarkup,footerMarkup,showcaseMarkup,initTesterPopup,initVisitorCounter,initHeaderTTS} from './shared.mjs';
+const promo=document.getElementById('promo-slot');
+const footer=document.getElementById('site-footer-slot');
+if(promo)promo.innerHTML=promoMarkup();
+if(footer)footer.innerHTML=footerMarkup();
+const demos=document.getElementById('demo-slot');
+if(demos)demos.innerHTML=showcaseMarkup();
+else if(promo&&document.getElementById('phases'))promo.insertAdjacentHTML('afterend',showcaseMarkup());
+initTesterPopup();
+initHeaderTTS();
+initVisitorCounter();
