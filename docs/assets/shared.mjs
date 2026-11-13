@@ -1,3 +1,4 @@
+import {initExamSearch} from './search.mjs';
 import {PLAY_URL,TESTER_EMAIL,ORIGINAL_SITE} from './catalog.mjs';
 export const LOGO_URL=`${ORIGINAL_SITE}assets/quaptureiq-logo.webp`;
 const mail=`mailto:${TESTER_EMAIL}?subject=QuaptureIQ%20tester%20interest&body=Hello%2C%20I%20would%20like%20to%20test%20QuaptureIQ.%20My%20Gmail%20address%20is%3A%20`;
@@ -68,6 +69,7 @@ export function initHeaderTTS(){
 }
 
 export function initVisitorCounter(){
+  initExamSearch();
   const footer=document.querySelector('.site-footer');
   if(!footer||document.getElementById('visitor-total'))return;
   const holder=document.createElement('div');
