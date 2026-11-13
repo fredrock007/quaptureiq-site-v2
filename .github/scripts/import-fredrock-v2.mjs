@@ -33,12 +33,8 @@ const assets = [
   "fredrock-favicon.png"
 ].map((name) => `assets/${name}`);
 
-const papers = Array.from({ length: 12 }, (_, index) =>
-  Array.from(
-    { length: 4 },
-    (_, term) => `papers/original/grade${index + 1}/mathematics/term${term + 1}.pdf`
-  )
-).flat();
+// Real examination files stay at their credited publishers; generated tests are removed.
+const papers = [];
 
 const mandatory = [...pages, ...assets, ...papers];
 const optional = ["sitemap.xml", "robots.txt"];
@@ -98,6 +94,39 @@ async function download(relativePath, isOptional = false) {
       contents = contents.replace(oldLink, 'href="archive/2022/"');
       contents = contents.replace(oldLabel, '2022 official Grade 12 papers &amp; memos');
     }
+    if (relativePath === "index.html") {
+      for (const year of [2023, 2024, 2025, 2026]) {
+        const oldLink = `href="study/?grade=12&amp;subject=mathematics&amp;term=4&amp;year=${year}"`;
+        if (!contents.includes(oldLink)) throw new Error(`Missing ${year} home archive link`);
+        contents = contents.replace(oldLink, `href="archive/${year}/"`);
+        contents = contents.replace(`${year} Grade 12 example &amp; paper archive`, `${year} official Grade 12 papers &amp; memos`);
+      }
+    }
+    if (relativePath.endsWith(".html")) {
+      const copyEdits = [
+        ["Practise questions on FredRock, check the answers, and browse 2022–2026 paper collections.", "Browse authentic published examination papers and memorandums from 2022–2026."],
+        ["Original sets you can view and print", "Published exams and official memos"],
+        ["Practice &amp; memos", "Papers &amp; memos"],
+        ["Keep practising here, then use QuaptureIQ", "Explore real papers here, then use QuaptureIQ"],
+        ["Start with an original FredRock practice task, reveal the memorandum when you are ready, and print or save it as a PDF. Browse real past papers from credited sources when available.", "Select authentic papers from credited publishers, open the original examination, and download an official memorandum when available."],
+        ["Practise with an on-site FredRock set.", "Open a real paper from its publisher."],
+        ["Reveal answers or print the paper.", "Read the memorandum and revise."],
+        ["Jump straight into a Grade 12 Mathematics example for a selected year, or select any other grade, subject and year above.", "Open the official Grade 12 examination archive for any year, or choose another grade and subject above."],
+        ["Original practice and marking guides for South African", "Published examination resources for South African"],
+        ["Choose practice by school term", "Explore the source archives"],
+        ["All practice opens inside FredRock", "Exam resources are shown in FredRock"],
+        ["Subject practice opens on this website", "Genuine published papers only"],
+        ["Open the on-site original practice paper.", "Browse real published exam papers."],
+        ["Reveal the memo or print/save as PDF.", "Open or download the original memorandum."],
+        ["Our practice is original.", "No generated exam tests are included."],
+        ["Find subjects, practice papers, memos and 2022–2026 source archives.", "Find real exam sources and memos, where available, from 2022–2026."],
+        ["Subject practice opens", "Exam resources open"],
+        ["PRACTICE TIME", "EXAM RESOURCES"],
+        ["Original practice •", "Authentic resources •"],
+        ["All practice opens", "Verified exam resources open"]
+      ];
+      for (const [oldText,newText] of copyEdits) contents = contents.replaceAll(oldText,newText);
+    }
     bytes = Buffer.from(contents, "utf8");
   }
   if (relativePath === "assets/shared.mjs") {
@@ -113,6 +142,14 @@ async function download(relativePath, isOptional = false) {
     if (!contents.includes(hook)) throw new Error("Search initialization hook missing.");
     contents = "import {initExamSearch} from './search.mjs';\n" + contents;
     contents = contents.replace(hook,hook + "\n  initExamSearch();");
+    bytes = Buffer.from(contents, "utf8");
+  }
+  if (relativePath === "assets/grade.mjs") {
+    let contents = bytes.toString("utf8");
+    contents = contents.replaceAll("Original practice + 2022–2026 source archive", "Genuine exam sources · availability varies");
+    contents = contents.replaceAll("Free Grade ${grade} practice and paper archive", "Free Grade ${grade} published exam resources");
+    contents = contents.replaceAll("Find practice questions, check your answers, and discover past paper collections from 2022 to 2026.", "Find published examination papers and memorandums, where available, from 2022 to 2026.");
+    contents = contents.replace("render();\ninitHeaderTTS();", "render();\ndocument.getElementById('term-pills')?.parentElement?.remove();\ninitHeaderTTS();");
     bytes = Buffer.from(contents, "utf8");
   }
   if (relativePath === "assets/study.mjs") {
@@ -138,6 +175,9 @@ for (let index = 0; index < files.length; index += 6) {
     group.map((file) => download(file, optional.includes(file)))
   );
 }
+// The legacy generated mathematics PDFs were removed at FredRock's request.
+await fs.rm("docs/papers/original", { recursive: true, force: true });
+await fs.copyFile("docs/assets/official-study.mjs", "docs/assets/study.mjs");
 await fs.copyFile(".github/scripts/fredrock-search.mjs", "docs/assets/search.mjs");
 await fs.writeFile("docs/.nojekyll", "");
 console.log(`Ready: ${imported} files plus .nojekyll in docs/`);
