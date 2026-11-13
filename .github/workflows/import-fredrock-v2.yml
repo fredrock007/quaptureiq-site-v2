@@ -7,6 +7,7 @@ on:
       - '.github/workflows/import-fredrock-v2.yml'
       - '.github/scripts/import-fredrock-v2.mjs'
       - '.github/scripts/import-dbe-gec.mjs'
+      - '.github/scripts/import-dbe-may.mjs'
       - '.github/scripts/import-provincial.mjs'
   workflow_dispatch:
 
@@ -29,7 +30,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Import genuine exam archives and QuaptureIQ demonstrations
+      - name: Publish expanded exam sessions and paper cover thumbnails
         run: node .github/scripts/import-fredrock-v2.mjs
       - name: Commit the complete website into docs/
         run: |
