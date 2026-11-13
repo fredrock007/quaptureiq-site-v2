@@ -1,5 +1,5 @@
 /** FredRock Paper Club: genuine examination documents only. */
-import {YEARS,phaseForGrade,subjectForGrade,subjectCollectionUrl,gradeCollectionUrl,PLAY_URL} from './catalog.mjs';
+import {YEARS,phaseForGrade,subjectForGrade,PLAY_URL} from './catalog.mjs';
 import {footerMarkup,initTesterPopup,initVisitorCounter,initHeaderTTS} from './shared.mjs';
 import {mappedSubject} from './dbe-2022.mjs';
 
@@ -27,17 +27,21 @@ css.textContent=`
   .real-year-nav button{border:1px solid #caddd4;background:white;border-radius:10px;padding:12px 16px;font-weight:850;color:#1b504f;cursor:pointer}
   .real-year-nav button[aria-pressed=true]{color:white;background:#087e78;border-color:#087e78}
   .real-docs{display:grid;gap:12px}
-  .real-document{padding:16px 17px;border:1px solid #d9e8e0;border-radius:14px;background:#fff;display:flex;justify-content:space-between;align-items:center;gap:18px}
+  .real-document{padding:16px 17px;border:1px solid #d9e8e0;border-radius:14px;background:#fff}
+  .real-document-top{display:flex;justify-content:space-between;align-items:center;gap:18px}
   .real-document .doc-type{font-size:.7rem;font-weight:950;color:#087e78;text-transform:uppercase;letter-spacing:.09em}
   .real-document h3{margin:4px 0;font-size:1rem;line-height:1.3}
   .real-document p{margin:0;color:#617178;font-size:.79rem}
   .real-actions{display:flex;gap:8px;flex-wrap:wrap}
-  .real-actions a{background:#eef8f3;border:1px solid #a7cfc3;border-radius:10px;padding:10px 12px;color:#087e78;font-weight:850;text-decoration:none;white-space:nowrap;font-size:.85rem}
-  .real-actions a:hover{background:#d8f3e6}
+  .real-actions a,.real-actions button{background:#eef8f3;border:1px solid #a7cfc3;border-radius:10px;padding:10px 12px;color:#087e78;font-family:inherit;font-weight:850;text-decoration:none;white-space:nowrap;font-size:.85rem;cursor:pointer}
+  .real-actions a:hover,.real-actions button:hover{background:#d8f3e6}
+  .real-preview{border-top:1px solid #e3eee7;margin-top:16px;padding-top:15px}
+  .real-preview iframe{width:100%;height:min(65vh,650px);min-height:360px;border:1px solid #b8cdc5;background:#f4f4f4;border-radius:10px}
+  .real-preview p{font-size:.8rem;color:#65797d;margin:0 0 10px}
   .real-main-link{display:inline-block;margin:17px 0;background:#087e78;color:#fff;text-decoration:none;font-weight:900;border-radius:12px;padding:12px 16px}
   .real-empty{border-radius:15px;border:1px dashed #c9d7ce;background:white;padding:24px;color:#425c61}
   .real-attribution{font-size:.84rem;color:#647780;margin-top:13px}
-  @media(max-width:580px){.real-document{display:block}.real-actions{margin-top:12px}.real-actions a{flex:1;text-align:center}}
+  @media(max-width:580px){.real-document-top{display:block}.real-actions{margin-top:12px}.real-actions a,.real-actions button{flex:1;text-align:center}}
   @media print{.real-year-nav,.real-actions,.quapture-panel{display:none!important}}
 `;
 document.head.appendChild(css);
@@ -46,9 +50,29 @@ function makeLink(doc){
   const download=new URL(doc.url);download.searchParams.set('forcedownload','true');
   const type=doc.kind==='memo'?'Memorandum':doc.kind==='supplement'?'Supporting document':'Exam paper';
   const isZip=doc.format==='ZIP'||/\.zip(?:[?#]|$)/i.test(doc.url);
-  const origin=grade===12?'Department of Basic Education':`Eastern Cape · ${grade===9?'GEC assessment':'November exam'}`;
-  return `<article class="real-document"><div><span class="doc-type">${type}</span><h3>${esc(doc.title)}</h3><p>Grade ${grade} · ${esc(doc.subject)} · ${origin} ${year}${isZip?' · ZIP archive':''}</p></div><div class="real-actions">${isZip?'':`<a href="${esc(doc.url)}" target="_blank" rel="noopener noreferrer">View original ↗</a>`}<a href="${esc(isZip?doc.url:download.href)}" target="_blank" rel="noopener noreferrer">Download ${isZip?'ZIP':'↓'}</a></div></article>`;
+  const origin=grade===12?'Department of Basic Education':doc.publisher==='Department of Basic Education'?'DBE · GEC pilot':`Eastern Cape · ${grade===9?'GEC assessment':'November exam'}`;
+  const preview=!isZip&&doc.kind!=='supplement';
+  return `<article class="real-document"><div class="real-document-top"><div><span class="doc-type">${type}</span><h3>${esc(doc.title)}</h3><p>Grade ${grade} · ${esc(doc.subject)} · ${origin} ${year}${isZip?' · ZIP archive':''}</p></div><div class="real-actions">${preview?'<button type="button" class="real-preview-toggle" aria-expanded="false">Preview first page ▣</button>':''}${isZip?'':`<a href="${esc(doc.url)}" target="_blank" rel="noopener noreferrer">View original ↗</a>`}<a href="${esc(isZip?doc.url:download.href)}" target="_blank" rel="noopener noreferrer">Download ${isZip?'ZIP':'↓'}</a></div></div>${preview?`<div class="real-preview" hidden data-pdf="${esc(doc.url)}"><p>Preview loads the publisher's original document only when requested. If your browser cannot display it here, tap “View original”.</p></div>`:''}</article>`;
 }
+
+// A first-page preview is requested on demand to avoid making mobile visitors
+// download dozens of entire PDFs just to browse the catalogue. No PDF is hosted.
+document.addEventListener('click',event=>{
+  const button=event.target.closest('.real-preview-toggle');if(!button)return;
+  const pane=button.closest('.real-document').querySelector('.real-preview');
+  if(!pane)return;
+  pane.hidden=!pane.hidden;
+  button.setAttribute('aria-expanded',String(!pane.hidden));
+  button.textContent=pane.hidden?'Preview first page ▣':'Hide preview ×';
+  if(!pane.hidden&&!pane.querySelector('iframe')){
+    const frame=document.createElement('iframe');
+    frame.title='Original exam PDF, first-page preview';
+    frame.loading='lazy';
+    frame.referrerPolicy='no-referrer';
+    frame.src=pane.dataset.pdf+'#page=1&toolbar=0&navpanes=0';
+    pane.appendChild(frame);
+  }
+});
 
 function render(){
   if(!phase||!subject){target.innerHTML='<section class="container"><h1>Subject not found.</h1><a href="../">Choose a grade →</a></section>';return;}
@@ -76,26 +100,33 @@ async function loadResults(displayYear){
       const response=await fetch(new URL('./provincial-exams.json',import.meta.url));
       if(!response.ok)throw new Error('Provincial index unavailable');
       const data=await response.json();
-      const docs=data.documents.filter(doc=>doc.grade===grade&&doc.year===displayYear&&doc.subjectId===subject.id)
+      const provincial=data.documents.filter(doc=>doc.grade===grade&&doc.year===displayYear&&doc.subjectId===subject.id);
+      let dbedocs=[];
+      if(grade===9&&[2022,2023].includes(displayYear)){
+        try{
+          const dbe=await fetch(new URL('./dbe-gec.json',import.meta.url));
+          if(dbe.ok)dbedocs=(await dbe.json()).documents.filter(doc=>doc.year===displayYear&&doc.subjectId===subject.id);
+        }catch{/* Provincial GEC files remain available as fallback. */}
+      }
+      const docs=(dbedocs.length?dbedocs:provincial)
         .sort((a,b)=>(a.paper||99)-(b.paper||99)||a.title.localeCompare(b.title));
       if(!box.isConnected||displayYear!==year)return;
+      const directDBE=dbedocs.length>0;
       const source='https://www.ecexams.co.za/ExaminationPapers.htm';
-      box.innerHTML=`<div class="real-note">🏛️ Eastern Cape examination archive · Grade ${grade} · ${grade===9?'General Education Certificate assessments':'November examinations'} · ${displayYear}.</div>
+      box.innerHTML=`<div class="real-note">🏛️ ${directDBE?'Department of Basic Education': 'Eastern Cape examination archive'} · Grade ${grade} · ${grade===9?'General Education Certificate assessments':'November examinations'} · ${displayYear}.</div>
         ${docs.length?`<p><strong>${docs.length} published source documents for ${esc(subject.name)}.</strong> Files open directly from the source. ZIP files must be extracted to access their contents.</p><div class="real-docs">${docs.map(makeLink).join('')}</div>`:
           `<div class="real-empty"><strong>No ${displayYear} provincial papers indexed for this subject.</strong><p>Only published and identifiable sources are listed.</p></div>`}
-        <a class="real-main-link" href="${source}" target="_blank" rel="noopener noreferrer">View Eastern Cape's examination index ↗</a>
-        <p class="real-attribution">These original documents remain on the publisher's website, not on FredRock. Availability and file formats vary. ${grade===9?'GEC assessments are not the same as school term exams.':''}</p>`;
+        <a class="real-main-link" href="${directDBE?'https://www.education.gov.za/GEC'+displayYear+'.aspx':source}" target="_blank" rel="noopener noreferrer">View the publisher's source index ↗</a>
+        <p class="real-attribution">These original documents remain on the publisher's website, not on FredRock. Availability and file formats vary. ${grade===9?'GEC pilot assessments are not the same as standard school term exams.':''}</p>`;
     }catch{
       if(box.isConnected&&displayYear===year)box.innerHTML='<div class="real-empty">The provincial document index is temporarily unavailable. <a href="https://www.ecexams.co.za/ExaminationPapers.htm" target="_blank" rel="noopener noreferrer">Browse source ↗</a></div>';
     }
     return;
   }
   if(grade!==12){
-    const collection=subjectCollectionUrl(grade,subject.id);
-    const specific=collection!==gradeCollectionUrl(grade);
     box.innerHTML=`<div class="real-empty"><strong>No verified ${displayYear} exam paper indexed for Grade ${grade} ${esc(subject.name)}.</strong>
       <p>Not every South African grade has a nationally published annual examination archive. FredRock will display a paper here only when its grade, subject and year can be verified.</p>
-      ${specific?`<a class="real-main-link" target="_blank" rel="noopener noreferrer" href="${esc(collection)}">Browse existing published school-paper collection ↗</a>`:''}
+      <p>Teachers: if you hold the rights to share a genuine paper, <a href="mailto:quaptureiq.reviewer@gmail.com?subject=FredRock%20verified%20Grade%20${grade}%20paper%20contribution">contact FredRock to help fill this archive ↗</a>.</p>
       <p><a target="_blank" rel="noopener noreferrer" href="https://www.education.gov.za/Examinations/AnnualNationalAssessmentsANA/tabid/569/Default.aspx">DBE National Assessment resources ↗</a></p></div>`;
     return;
   }
