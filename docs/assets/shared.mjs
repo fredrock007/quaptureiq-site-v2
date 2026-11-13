@@ -15,7 +15,7 @@ export function showcaseMarkup(){
   const cardMarkup=cards.map(card=>[
     '<article class="demo-card" data-gif="',card.kind,'">',
     '<div class="demo-visual"><img src="',DEMO_ROOT,card.file,'" alt="',card.alt,'" loading="lazy" decoding="async">',
-    '<span class="demo-loop">↻ Repeats automatically</span></div>',
+    '</div>',
     '<strong>',card.title,'</strong><p>',card.description,'</p>',
     '<small><a href="',card.post,'" target="_blank" rel="noopener noreferrer">Watch FredRock’s full video ↗</a></small></article>'
   ].join('')).join('');
@@ -79,7 +79,7 @@ export function initVisitorCounter(){
   const hero=document.querySelector('.home-hero .home-inner>div:first-child');
   if(hero){
     const top=document.createElement('div');top.className='visitor-top';top.setAttribute('aria-label','Paper Club visitor counter');
-    top.innerHTML='<span aria-hidden="true">👁️</span><strong id="hero-visitor-total">3 031 500</strong>';
+    top.innerHTML='<span aria-hidden="true">👁️</span><strong id="hero-visitor-total">3 031 500</strong><small>visits</small>';
     hero.insertBefore(top,hero.firstChild);fields.push(top.querySelector('strong'));
   }
   const format=new Intl.NumberFormat('en-ZA');
