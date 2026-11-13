@@ -1,10 +1,10 @@
-/** Direct links to DBE's genuine Grade 9 GEC pilot assessments (2022–2023).
+/** Direct links to DBE's genuine Grade 9 GEC pilot assessments (2022–2024).
  * All PDFs remain hosted on education.gov.za.
  */
 import fs from 'node:fs/promises';
 
 const website='https://www.education.gov.za/';
-const years=[2022,2023];
+const years=[2022,2023,2024];
 const records=[];
 const decode=s=>String(s).replace(/&amp;/gi,'&').replace(/&nbsp;/gi,' ').replace(/&#39;/gi,"'").replace(/&quot;/gi,'"');
 const plain=s=>decode(String(s).replace(/<[^>]+>/g,' ').replace(/\s+/g,' ')).trim();
@@ -40,7 +40,7 @@ async function archiveHtml(source){
 }
 let archiveUnavailable=false;
 for(const year of years){
-  const source=website+`GEC${year}.aspx`;
+  const source=website+(year===2024?'GECTests2024.aspx':`GEC${year}.aspx`);
   let html;
   try{html=await archiveHtml(source);}catch(error){
     console.warn(`DBE GEC live refresh unavailable: ${error.message}`);
@@ -71,7 +71,7 @@ if(archiveUnavailable){
   }
   console.log(`Using ${existing.documents.length} previously verified DBE GEC links; preserving successful deployment.`);
 }else{
-const result={publisher:'Department of Basic Education',source:'https://www.education.gov.za/GEC2023.aspx',notice:'GEC pilot assessment resources, not standard school examination papers. All PDFs are opened on the DBE website.',documents:[...new Map(records.map(r=>[r.year+'|'+r.url,r])).values()]};
+const result={publisher:'Department of Basic Education',source:'https://www.education.gov.za/GECTests2024.aspx',notice:'GEC pilot assessment resources, not standard school examination papers. All PDFs are opened on the DBE website.',documents:[...new Map(records.map(r=>[r.year+'|'+r.url,r])).values()]};
 await fs.writeFile('docs/assets/dbe-gec.json',JSON.stringify(result));
 console.log(`Direct DBE GEC resources: ${result.documents.length}`);
 }
