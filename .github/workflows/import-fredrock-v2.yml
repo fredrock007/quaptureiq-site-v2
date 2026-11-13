@@ -6,6 +6,8 @@ on:
     paths:
       - '.github/workflows/import-fredrock-v2.yml'
       - '.github/scripts/import-fredrock-v2.mjs'
+      - '.github/scripts/import-dbe-gec.mjs'
+      - '.github/scripts/import-provincial.mjs'
   workflow_dispatch:
 
 permissions:
