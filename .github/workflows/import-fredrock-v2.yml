@@ -27,7 +27,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Import pages, practice PDFs, and looping QuaptureIQ GIFs
+      - name: Import genuine exam archives and QuaptureIQ demonstrations
         run: node .github/scripts/import-fredrock-v2.mjs
       - name: Commit the complete website into docs/
         run: |
