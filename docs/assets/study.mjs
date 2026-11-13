@@ -2,6 +2,7 @@
 import {YEARS,phaseForGrade,subjectForGrade,PLAY_URL} from './catalog.mjs';
 import {footerMarkup,initTesterPopup,initVisitorCounter,initHeaderTTS} from './shared.mjs';
 import {mappedSubject} from './dbe-2022.mjs';
+import {installCoverStyles,paperCover} from './paper-cover.mjs';
 
 const qs=new URLSearchParams(location.search);
 const grade=Number(qs.get('grade')||1);
@@ -35,9 +36,6 @@ css.textContent=`
   .real-actions{display:flex;gap:8px;flex-wrap:wrap}
   .real-actions a,.real-actions button{background:#eef8f3;border:1px solid #a7cfc3;border-radius:10px;padding:10px 12px;color:#087e78;font-family:inherit;font-weight:850;text-decoration:none;white-space:nowrap;font-size:.85rem;cursor:pointer}
   .real-actions a:hover,.real-actions button:hover{background:#d8f3e6}
-  .real-preview{border-top:1px solid #e3eee7;margin-top:16px;padding-top:15px}
-  .real-preview iframe{width:100%;height:min(65vh,650px);min-height:360px;border:1px solid #b8cdc5;background:#f4f4f4;border-radius:10px}
-  .real-preview p{font-size:.8rem;color:#65797d;margin:0 0 10px}
   .real-main-link{display:inline-block;margin:17px 0;background:#087e78;color:#fff;text-decoration:none;font-weight:900;border-radius:12px;padding:12px 16px}
   .real-empty{border-radius:15px;border:1px dashed #c9d7ce;background:white;padding:24px;color:#425c61}
   .real-attribution{font-size:.84rem;color:#647780;margin-top:13px}
@@ -51,28 +49,9 @@ function makeLink(doc){
   const type=doc.kind==='memo'?'Memorandum':doc.kind==='supplement'?'Supporting document':'Exam paper';
   const isZip=doc.format==='ZIP'||/\.zip(?:[?#]|$)/i.test(doc.url);
   const origin=grade===12?'Department of Basic Education':doc.publisher==='Department of Basic Education'?'DBE · GEC pilot':`Eastern Cape · ${grade===9?'GEC assessment':'November exam'}`;
-  const preview=!isZip&&doc.kind!=='supplement';
-  return `<article class="real-document"><div class="real-document-top"><div><span class="doc-type">${type}</span><h3>${esc(doc.title)}</h3><p>Grade ${grade} · ${esc(doc.subject)} · ${origin} ${year}${isZip?' · ZIP archive':''}</p></div><div class="real-actions">${preview?'<button type="button" class="real-preview-toggle" aria-expanded="false">Preview first page ▣</button>':''}${isZip?'':`<a href="${esc(doc.url)}" target="_blank" rel="noopener noreferrer">View original ↗</a>`}<a href="${esc(isZip?doc.url:download.href)}" target="_blank" rel="noopener noreferrer">Download ${isZip?'ZIP':'↓'}</a></div></div>${preview?`<div class="real-preview" hidden data-pdf="${esc(doc.url)}"><p>Preview loads the publisher's original document only when requested. If your browser cannot display it here, tap “View original”.</p></div>`:''}</article>`;
+  return `<article class="real-document"><div class="real-document-top"><div class="fred-cover-layout">${paperCover({grade,year,subject:doc.subject,title:doc.title,kind:doc.kind,url:doc.url})}<div class="fred-cover-content"><span class="doc-type">${type}</span><h3>${esc(doc.title)}</h3><p>Grade ${grade} · ${esc(doc.subject)} · ${origin} ${year}${doc.session?` · ${esc(doc.session)}`:''}${isZip?' · ZIP archive':''}</p></div></div><div class="real-actions">${isZip?'':`<a href="${esc(doc.url)}" target="_blank" rel="noopener noreferrer">View original ↗</a>`}<a href="${esc(isZip?doc.url:download.href)}" target="_blank" rel="noopener noreferrer">Download ${isZip?'ZIP':'↓'}</a></div></div></article>`;
 }
-
-// A first-page preview is requested on demand to avoid making mobile visitors
-// download dozens of entire PDFs just to browse the catalogue. No PDF is hosted.
-document.addEventListener('click',event=>{
-  const button=event.target.closest('.real-preview-toggle');if(!button)return;
-  const pane=button.closest('.real-document').querySelector('.real-preview');
-  if(!pane)return;
-  pane.hidden=!pane.hidden;
-  button.setAttribute('aria-expanded',String(!pane.hidden));
-  button.textContent=pane.hidden?'Preview first page ▣':'Hide preview ×';
-  if(!pane.hidden&&!pane.querySelector('iframe')){
-    const frame=document.createElement('iframe');
-    frame.title='Original exam PDF, first-page preview';
-    frame.loading='lazy';
-    frame.referrerPolicy='no-referrer';
-    frame.src=pane.dataset.pdf+'#page=1&toolbar=0&navpanes=0';
-    pane.appendChild(frame);
-  }
-});
+installCoverStyles();
 
 function render(){
   if(!phase||!subject){target.innerHTML='<section class="container"><h1>Subject not found.</h1><a href="../">Choose a grade →</a></section>';return;}
@@ -102,7 +81,7 @@ async function loadResults(displayYear){
       const data=await response.json();
       const provincial=data.documents.filter(doc=>doc.grade===grade&&doc.year===displayYear&&doc.subjectId===subject.id);
       let dbedocs=[];
-      if(grade===9&&[2022,2023].includes(displayYear)){
+      if(grade===9&&[2022,2023,2024].includes(displayYear)){
         try{
           const dbe=await fetch(new URL('./dbe-gec.json',import.meta.url));
           if(dbe.ok)dbedocs=(await dbe.json()).documents.filter(doc=>doc.year===displayYear&&doc.subjectId===subject.id);
@@ -116,7 +95,7 @@ async function loadResults(displayYear){
       box.innerHTML=`<div class="real-note">🏛️ ${directDBE?'Department of Basic Education': 'Eastern Cape examination archive'} · Grade ${grade} · ${grade===9?'General Education Certificate assessments':'November examinations'} · ${displayYear}.</div>
         ${docs.length?`<p><strong>${docs.length} published source documents for ${esc(subject.name)}.</strong> Files open directly from the source. ZIP files must be extracted to access their contents.</p><div class="real-docs">${docs.map(makeLink).join('')}</div>`:
           `<div class="real-empty"><strong>No ${displayYear} provincial papers indexed for this subject.</strong><p>Only published and identifiable sources are listed.</p></div>`}
-        <a class="real-main-link" href="${directDBE?'https://www.education.gov.za/GEC'+displayYear+'.aspx':source}" target="_blank" rel="noopener noreferrer">View the publisher's source index ↗</a>
+        <a class="real-main-link" href="${directDBE?(displayYear===2024?'https://www.education.gov.za/GECTests2024.aspx':'https://www.education.gov.za/GEC'+displayYear+'.aspx'):source}" target="_blank" rel="noopener noreferrer">View the publisher's source index ↗</a>
         <p class="real-attribution">These original documents remain on the publisher's website, not on FredRock. Availability and file formats vary. ${grade===9?'GEC pilot assessments are not the same as standard school term exams.':''}</p>`;
     }catch{
       if(box.isConnected&&displayYear===year)box.innerHTML='<div class="real-empty">The provincial document index is temporarily unavailable. <a href="https://www.ecexams.co.za/ExaminationPapers.htm" target="_blank" rel="noopener noreferrer">Browse source ↗</a></div>';
@@ -134,10 +113,17 @@ async function loadResults(displayYear){
     const response=await fetch(new URL(`./dbe-${displayYear}.json`,import.meta.url));
     if(!response.ok)throw new Error('Catalogue unavailable');
     const data=await response.json();
-    const docs=data.documents.filter(doc=>mappedSubject(doc.subject)===subject.id).sort((a,b)=>(a.paper||99)-(b.paper||99)||({paper:0,memo:1,supplement:2}[a.kind]-{paper:0,memo:1,supplement:2}[b.kind])||a.title.localeCompare(b.title));
+    let may=[];
+    if(displayYear<2026){
+      try{
+        const mayResponse=await fetch(new URL(`./dbe-may-${displayYear}.json`,import.meta.url));
+        if(mayResponse.ok)may=(await mayResponse.json()).documents.map(doc=>({...doc,session:'May/June'}));
+      }catch{/* Keep verified November records. */}
+    }
+    const docs=[...data.documents.map(doc=>({...doc,session:displayYear===2026?'May/June':'November'})),...may].filter(doc=>mappedSubject(doc.subject)===subject.id).sort((a,b)=>(a.paper||99)-(b.paper||99)||({paper:0,memo:1,supplement:2}[a.kind]-{paper:0,memo:1,supplement:2}[b.kind])||a.title.localeCompare(b.title));
     if(!box.isConnected||displayYear!==year)return;
     const fullArchive=`../archive/${displayYear}/?subject=${encodeURIComponent(subject.id)}`;
-    box.innerHTML=`<div class="real-note">🏛️ Department of Basic Education · Grade 12 · ${session(displayYear)} ${displayYear}. ${displayYear===2026?'This is the May/June collection; November 2026 papers are not yet available.':''}</div>
+    box.innerHTML=`<div class="real-note">🏛️ Department of Basic Education · Grade 12 · ${may.length?'November and May/June NSC/SC':session(displayYear)} ${displayYear}. ${displayYear===2026?'This is the May/June collection; November 2026 papers are not yet available.':''}</div>
       ${docs.length?`<p><strong>${docs.length} genuine DBE files found for ${esc(subject.name)}.</strong> Choose View or Download.</p><div class="real-docs">${docs.map(makeLink).join('')}</div>`:
         `<div class="real-empty">No official ${displayYear} files indexed for this subject in this examination session.</div>`}
       <a class="real-main-link" href="${fullArchive}">Browse the full ${displayYear} Grade 12 archive →</a>
