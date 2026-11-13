@@ -100,6 +100,10 @@ async function download(relativePath, isOptional = false) {
     }
     contents = contents.replace(repeatBadge, "");
     contents = contents.replace(visitorNumber, `${visitorNumber}<small>visits</small>`);
+    const hook = "export function initVisitorCounter(){";
+    if (!contents.includes(hook)) throw new Error("Search initialization hook missing.");
+    contents = "import {initExamSearch} from './search.mjs';\n" + contents;
+    contents = contents.replace(hook,hook + "\n  initExamSearch();");
     bytes = Buffer.from(contents, "utf8");
   }
   const outputPath = path.join("docs", relativePath);
@@ -115,5 +119,6 @@ for (let index = 0; index < files.length; index += 6) {
     group.map((file) => download(file, optional.includes(file)))
   );
 }
+await fs.copyFile(".github/scripts/fredrock-search.mjs", "docs/assets/search.mjs");
 await fs.writeFile("docs/.nojekyll", "");
 console.log(`Ready: ${imported} files plus .nojekyll in docs/`);
