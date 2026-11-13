@@ -40,19 +40,39 @@ function styles() {
     .dbe-study-panel p{color:#53676a;margin:0 0 15px}
     .dbe-study-panel .dbe-subtitle{color:#117e72;text-transform:uppercase;font-size:.75rem;font-weight:900;letter-spacing:.09em}
     .dbe-doc-list{display:grid;gap:8px}
-    .dbe-doc-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;background:#fff;border:1px solid #e1eae7;border-radius:12px}
+    .dbe-doc-row{padding:12px 14px;background:#fff;border:1px solid #e1eae7;border-radius:12px}
+    .dbe-doc-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
     .dbe-doc-row strong{display:block;color:#1a3440;font-size:.91rem;line-height:1.3}
     .dbe-doc-row small{display:block;color:#60757b;margin-top:2px;font-size:.77rem}
     .dbe-doc-actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
-    .dbe-doc-row a{font-size:.82rem;font-weight:850;color:#087e78;text-decoration:none;border:1px solid #bcdad3;background:#f6fcf8;border-radius:9px;padding:9px 11px;white-space:nowrap}
-    .dbe-doc-row a:hover{background:#e0f8ee}
+    .dbe-doc-row a,.dbe-doc-row button{font-family:inherit;font-size:.82rem;font-weight:850;color:#087e78;text-decoration:none;border:1px solid #bcdad3;background:#f6fcf8;border-radius:9px;padding:9px 11px;white-space:nowrap;cursor:pointer}
+    .dbe-doc-row a:hover,.dbe-doc-row button:hover{background:#e0f8ee}
+    .dbe-pdf-preview{border-top:1px solid #d7e5de;margin-top:13px;padding-top:12px}
+    .dbe-pdf-preview p{font-size:.8rem;color:#60757b;margin:0 0 8px}
+    .dbe-pdf-preview iframe{border:1px solid #d1dfd6;border-radius:9px;width:100%;height:min(65vh,650px);min-height:360px;background:#eee}
     .dbe-full-link{display:inline-block;background:#087e78;color:#fff!important;font-weight:900;padding:11px 15px;border-radius:11px;text-decoration:none;margin-top:14px}
     .dbe-legal-note{font-size:.8rem!important;color:#627478!important;margin-top:14px!important}
-    @media(max-width:480px){.dbe-study-panel{padding:15px}.dbe-doc-row{align-items:flex-start;flex-wrap:wrap}.dbe-doc-actions{width:100%;justify-content:stretch}.dbe-doc-row a{flex:1;text-align:center}}
+    @media(max-width:480px){.dbe-study-panel{padding:15px}.dbe-doc-top{display:block}.dbe-doc-actions{margin-top:11px;width:100%;justify-content:stretch}.dbe-doc-row a,.dbe-doc-row button{flex:1;text-align:center}}
     @media print{.dbe-study-panel{display:none!important}}
   `;
   document.head.appendChild(style);
 }
+
+document.addEventListener('click',event=>{
+  const button=event.target.closest('.dbe2022-preview-button');if(!button)return;
+  const preview=button.closest('.dbe-doc-row').querySelector('.dbe-pdf-preview');
+  if(!preview)return;
+  preview.hidden=!preview.hidden;
+  button.setAttribute('aria-expanded',String(!preview.hidden));
+  button.textContent=preview.hidden?'Preview first page ▣':'Hide preview ×';
+  if(!preview.hidden&&!preview.querySelector('iframe')){
+    const frame=document.createElement('iframe');
+    frame.title='Original 2022 exam PDF first-page preview';
+    frame.loading='lazy';frame.referrerPolicy='no-referrer';
+    frame.src=preview.dataset.pdf+'#page=1&toolbar=0&navpanes=0';
+    preview.appendChild(frame);
+  }
+});
 
 const sortPapers = (left,right) => (left.paper || 99) - (right.paper || 99) ||
   kindOrder[left.kind] - kindOrder[right.kind] || left.title.localeCompare(right.title);
@@ -61,7 +81,8 @@ function documentRow(doc, label = false) {
   // URLs are from the verified DBE catalogue, not visitor input.
   const download = new URL(doc.url);
   download.searchParams.set('forcedownload', 'true');
-  return `<div class="dbe-doc-row"><div><strong>${esc(doc.title)}</strong><small>${label ? `${esc(doc.subject)} · ` : ''}${kindName[doc.kind] || 'Official document'} · DBE November 2022</small></div><div class="dbe-doc-actions"><a href="${esc(doc.url)}" target="_blank" rel="noopener noreferrer" aria-label="View ${esc(doc.subject)} ${esc(doc.title)} at the Department of Basic Education">View ↗</a><a href="${esc(download.href)}" target="_blank" rel="noopener noreferrer" aria-label="Download ${esc(doc.subject)} ${esc(doc.title)} from the Department of Basic Education">Download ↓</a></div></div>`;
+  const preview=doc.kind!=='supplement';
+  return `<div class="dbe-doc-row"><div class="dbe-doc-top"><div><strong>${esc(doc.title)}</strong><small>${label ? `${esc(doc.subject)} · ` : ''}${kindName[doc.kind] || 'Official document'} · DBE November 2022</small></div><div class="dbe-doc-actions">${preview?'<button class="dbe2022-preview-button" type="button" aria-expanded="false">Preview first page ▣</button>':''}<a href="${esc(doc.url)}" target="_blank" rel="noopener noreferrer" aria-label="View ${esc(doc.subject)} ${esc(doc.title)} at the Department of Basic Education">View ↗</a><a href="${esc(download.href)}" target="_blank" rel="noopener noreferrer" aria-label="Download ${esc(doc.subject)} ${esc(doc.title)} from the Department of Basic Education">Download ↓</a></div></div>${preview?`<div class="dbe-pdf-preview" data-pdf="${esc(doc.url)}" hidden><p>Original DBE PDF; if the preview is unsupported on your device, choose View.</p></div>`:''}</div>`;
 }
 
 /** Called after each study-page render, including switching the year tabs. */
