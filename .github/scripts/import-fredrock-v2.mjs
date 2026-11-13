@@ -121,8 +121,8 @@ async function download(relativePath, isOptional = false) {
     if (!contents.includes(hook)) {
       throw new Error("Expected study page rendering hook not found.");
     }
-    contents = "import {mountStudyArchive2022} from './dbe-2022.mjs';\\n" + contents;
-    contents = contents.replace(hook, "  mountStudyArchive2022({grade,subjectId:subject.id,year});\\n" + hook);
+    contents = "import {mountStudyArchive2022} from './dbe-2022.mjs';\n" + contents;
+    contents = contents.replace(hook, "  mountStudyArchive2022({grade,subjectId:subject.id,year});\n" + hook);
     bytes = Buffer.from(contents, "utf8");
   }
   const outputPath = path.join("docs", relativePath);
