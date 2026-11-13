@@ -107,6 +107,8 @@ async function download(relativePath, isOptional = false) {
         ["Practise questions on FredRock, check the answers, and browse 2022–2026 paper collections.", "Browse authentic published examination papers and memorandums from 2022–2026."],
         ["Original sets you can view and print", "Published exams and official memos"],
         ["Practice &amp; memos", "Papers &amp; memos"],
+        ["Practice & memos", "Papers & memos"],
+        ["Free Grade 1–12 South African CAPS practice, memorandums and credited 2022–2026 past-paper collections.", "Find genuine South African examination papers and memorandums for Grades 1–12, sourced from verified publishers, 2022–2026."],
         ["Keep practising here, then use QuaptureIQ", "Explore real papers here, then use QuaptureIQ"],
         ["Start with an original FredRock practice task, reveal the memorandum when you are ready, and print or save it as a PDF. Browse real past papers from credited sources when available.", "Select authentic papers from credited publishers, open the original examination, and download an official memorandum when available."],
         ["Practise with an on-site FredRock set.", "Open a real paper from its publisher."],
