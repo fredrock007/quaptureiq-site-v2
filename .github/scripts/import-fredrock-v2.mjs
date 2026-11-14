@@ -84,6 +84,11 @@ async function download(relativePath, isOptional = false) {
     // Update sharing previews and canonical URLs, while keeping the counter's API
     // URL in assets/shared.mjs directed to the existing cross-origin endpoint.
     contents = contents.replaceAll(source, destination);
+    if (/^grade(?:4|5|8)\/index\.html$/.test(relativePath)) {
+      const moduleTag = 'src="../assets/grade.mjs"';
+      if (!contents.includes(moduleTag)) throw new Error("Grade subject module tag missing.");
+      contents = contents.replace(moduleTag,'src="../assets/grade.mjs?revision=20261114g"');
+    }
     if (relativePath === "study/index.html") {
       contents = contents.replace('src="../assets/study.mjs"', 'src="../assets/study.mjs?revision=20261114f"');
     }
@@ -161,10 +166,13 @@ async function download(relativePath, isOptional = false) {
   }
   if (relativePath === "assets/grade.mjs") {
     let contents = bytes.toString("utf8");
+    const yearDefault = "let category='all',term='all',year=2026;";
+    if (!contents.includes(yearDefault)) throw new Error("Subject page year marker missing.");
+    contents = contents.replace(yearDefault,"let category='all',term='all',year=[4,5,8].includes(grade)?2024:2026;");
     contents = contents.replaceAll("Original practice + 2022–2026 source archive", "Genuine exam sources · availability varies");
     contents = contents.replaceAll("Free Grade ${grade} practice and paper archive", "Free Grade ${grade} published exam resources");
     contents = contents.replaceAll("Find practice questions, check your answers, and discover past paper collections from 2022 to 2026.", "Find published examination papers and memorandums, where available, from 2022 to 2026.");
-    contents = contents.replace("render();\ninitHeaderTTS();", "render();\ndocument.getElementById('term-pills')?.parentElement?.remove();\ninitHeaderTTS();");
+    contents = contents.replace("render();\ninitHeaderTTS();", "render();\ndocument.querySelectorAll('#year-pills button[data-year]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.year)===year)));\ndocument.getElementById('term-pills')?.parentElement?.remove();\ninitHeaderTTS();");
     bytes = Buffer.from(contents, "utf8");
   }
   if (relativePath === "assets/study.mjs") {
