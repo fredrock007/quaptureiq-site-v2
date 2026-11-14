@@ -52,7 +52,7 @@ function makeLink(doc){
   const kind=/\b(?:answer\s*books?|data files?|addendum|annexure|supplement)\b/i.test(doc.title)?'supplement':doc.kind;
   const type=kind==='memo'?'Memorandum':kind==='supplement'?'Supporting document':'Exam paper';
   const isZip=doc.format==='ZIP'||/\.zip(?:[?#]|$)/i.test(doc.url);
-  const origin=grade===12?'Department of Basic Education':doc.publisher==='Department of Basic Education'?'DBE · GEC pilot':`Eastern Cape · ${grade===9?'GEC assessment':'November exam'}`;
+  const origin=doc.publisher==='North West Department of Education'?'North West · provincial examinations':grade===12?'Department of Basic Education':doc.publisher==='Department of Basic Education'?'DBE · GEC pilot':`Eastern Cape · ${grade===9?'GEC assessment':'November exam'}`;
   return `<article class="real-document"><div class="real-document-top"><div class="fred-cover-layout">${paperCover({grade,year,subject:doc.subject,title:doc.title,kind,url:doc.url})}<div class="fred-cover-content"><span class="doc-type">${type}</span><h3>${esc(doc.title)}</h3><p>Grade ${grade} · ${esc(doc.subject)} · ${origin} ${year}${doc.session&&!(grade===9&&doc.publisher==='Department of Basic Education')?` · ${esc(doc.session)}`:''}${isZip?' · ZIP archive':''}</p></div></div><div class="real-actions">${isZip?'':`<a href="${esc(doc.url)}" target="_blank" rel="noopener noreferrer">View original ↗</a>`}<a href="${esc(isZip?doc.url:download.href)}" target="_blank" rel="noopener noreferrer">Download ${isZip?'ZIP':'↓'}</a></div></div></article>`;
 }
 
@@ -60,6 +60,15 @@ function makePrimaryLink(doc){
   const label=doc.type==='olympiad'?(doc.kind==='memo'?'Olympiad memorandum':'Olympiad paper'):doc.type==='diagnostic'?'Diagnostic assessment':'School-based assessment exemplar';
   const fileYear=doc.year||'Undated';
   return `<article class="real-document"><div class="real-document-top"><div class="fred-cover-layout">${paperCover({grade,year:doc.year||'CAPS',subject:subject.name,title:doc.title,kind:doc.kind,url:doc.url})}<div class="fred-cover-content"><span class="real-resource-tag">${esc(label)}</span><h3>${esc(doc.title)}</h3><p>${esc(doc.publisher)} · ${fileYear}${doc.grades.length>1?' · Covers Grades '+doc.grades.join(', '):''}</p></div></div><div class="real-actions"><a href="${esc(doc.url)}" target="_blank" rel="noopener noreferrer">Open PDF ↗</a><a href="${esc(doc.sourceUrl)}" target="_blank" rel="noopener noreferrer">Publisher ↗</a></div></div></article>`;
+}
+
+async function fetchNorthWest(displayYear){
+  if(displayYear!==2024)return [];
+  const response=await fetch(new URL('./nw-exams.json',import.meta.url));
+  if(!response.ok)throw new Error('North West examination index unavailable');
+  const data=await response.json();
+  if(!Array.isArray(data.documents))throw new Error('Invalid North West examination index');
+  return data.documents;
 }
 
 async function loadPrimaryResults(displayYear,box){
@@ -71,11 +80,19 @@ async function loadPrimaryResults(displayYear,box){
     const matching=data.documents.filter(doc=>doc.grades.includes(grade)&&doc.subjectIds.includes(subject.id));
     const dated=matching.filter(doc=>doc.year===displayYear).sort((a,b)=>a.type.localeCompare(b.type)||a.title.localeCompare(b.title));
     const undated=matching.filter(doc=>doc.year==null).sort((a,b)=>a.title.localeCompare(b.title));
+    let provincial=[];
+    if(grade===6||grade===7){
+      try{
+        provincial=(await fetchNorthWest(displayYear)).filter(doc=>doc.grade===grade&&doc.subjectId===subject.id)
+          .sort((a,b)=>a.session.localeCompare(b.session)||(a.paper||99)-(b.paper||99)||a.title.localeCompare(b.title));
+      }catch{/* Keep the DBE and SAASTA collections visible if provincial site is down. */}
+    }
     if(!box.isConnected||displayYear!==year)return;
-    box.innerHTML=`<div class="real-note">🏛️ Verified Department of Basic Education resources${dated.some(doc=>doc.type==='olympiad')?' and NRF-SAASTA Natural Sciences Olympiad papers':''} for Grade ${grade}. School-based exemplars, diagnostic items and Olympiad papers are <strong>not standard school term examinations</strong>.</div>
+    box.innerHTML=`<div class="real-note">🏛️ Verified publisher documents for Grade ${grade}. ${provincial.length?'The North West provincial records are actual 2024 exam papers and memorandums. ':''}School-based exemplars, diagnostic items and Olympiad papers are <strong>not standard school term examinations</strong>.</div>
+      ${provincial.length?`<h3 class="real-group-heading">${displayYear} provincial examination papers</h3><p class="real-group-intro"><strong>${provincial.length} North West examination document${provincial.length===1?'':'s'}.</strong> Tap a cover to open the original official PDF.</p><div class="real-docs">${provincial.map(makeLink).join('')}</div><p class="real-attribution">Source: <a href="https://education.nwpg.gov.za/?page_id=4644" target="_blank" rel="noopener noreferrer">North West Department of Education ↗</a>.</p>`:''}
       <h3 class="real-group-heading">${displayYear} published papers &amp; assessments</h3>
       ${dated.length?`<p class="real-group-intro"><strong>${dated.length} verified ${displayYear} document${dated.length===1?'':'s'}.</strong> Tap a cover to open the original PDF from its publisher.</p><div class="real-docs">${dated.map(makePrimaryLink).join('')}</div>`:
-        `<div class="real-empty"><strong>No verified Grade ${grade} ${esc(subject.name)} paper dated ${displayYear} in this collection yet.</strong><p>Grades 1–8 do not have a complete national annual school exam archive. Undated official exemplar material is shown below where available.</p></div>`}
+        `<div class="real-empty"><strong>No additional Grade ${grade} ${esc(subject.name)} assessment dated ${displayYear} in this collection.</strong><p>Grades 1–8 do not have a complete national annual school exam archive. Undated official exemplar material is shown below where available.</p></div>`}
       ${undated.length?`<h3 class="real-group-heading">Official CAPS assessment exemplars</h3><p class="real-group-intro">${undated.length} Department of Basic Education booklet${undated.length===1?'':'s'} covering assessment tasks for this subject. <strong>These booklets are not dated ${displayYear} exams</strong>; many cover an entire grade band.</p><div class="real-docs">${undated.map(makePrimaryLink).join('')}</div>`:''}
       <p class="real-attribution">The PDFs open directly from their original publishers and retain their copyright. This catalogue does not claim these exemplars were written as official ${displayYear} school examinations. <a href="https://www.education.gov.za/Curriculum/NationalCurriculumStatementsGradesR-12/SBAExemplars.aspx" target="_blank" rel="noopener noreferrer">DBE SBA collection ↗</a>${matching.some(doc=>doc.type==='olympiad')?' · <a href="https://www.saasta.ac.za/competitions/natural-science-olympiad/" target="_blank" rel="noopener noreferrer">SAASTA past-paper collection ↗</a>':''}.</p>`;
   }catch{
@@ -106,6 +123,21 @@ function render(){
 async function loadResults(displayYear){
   const box=document.getElementById('official-results');
   if(grade>=1&&grade<=8){await loadPrimaryResults(displayYear,box);return;}
+  if(grade===10){
+    try{
+      const docs=(await fetchNorthWest(displayYear)).filter(doc=>doc.grade===10&&doc.subjectId===subject.id)
+        .sort((a,b)=>a.session.localeCompare(b.session)||(a.paper||99)-(b.paper||99)||a.title.localeCompare(b.title));
+      if(!box.isConnected||displayYear!==year)return;
+      box.innerHTML=`<div class="real-note">🏛️ North West Department of Education · Grade 10 · ${displayYear}. Verified provincial papers and marking guidelines, where published.</div>
+        ${docs.length?`<p><strong>${docs.length} genuine ${displayYear} examination document${docs.length===1?'':'s'} for ${esc(subject.name)}.</strong> Tap the front-page thumbnail to open the original exam PDF.</p><div class="real-docs">${docs.map(makeLink).join('')}</div>`:
+        `<div class="real-empty"><strong>No verified Grade 10 ${esc(subject.name)} exam paper indexed for ${displayYear} yet.</strong><p>The provincial archive currently supplies 2024 Grade 10 exams. Other years will appear when publisher-verified papers are indexed.</p></div>`}
+        <a class="real-main-link" href="https://education.nwpg.gov.za/?page_id=4644" target="_blank" rel="noopener noreferrer">View North West's original examination archive ↗</a>
+        <p class="real-attribution">Original PDFs remain on the North West Department of Education's website. FredRock lists only identifiable publisher files; availability varies by subject and session.</p>`;
+    }catch{
+      if(box.isConnected&&displayYear===year)box.innerHTML='<div class="real-empty">The provincial document index is currently unavailable. <a href="https://education.nwpg.gov.za/?page_id=4644" target="_blank" rel="noopener noreferrer">Browse the North West examination archive ↗</a></div>';
+    }
+    return;
+  }
   if(grade===9||grade===11){
     try{
       const response=await fetch(new URL('./provincial-exams.json',import.meta.url));

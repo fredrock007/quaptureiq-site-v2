@@ -45,6 +45,8 @@ const fet=[
   S('mathematics','Mathematics','➗','Algebra, functions, trigonometry, calculus and statistics.',['Core option','Mathematics'],'#e6edff'),
   S('math-lit','Mathematical Literacy','🧮','Everyday finance, measurement, maps, plans and data.',['Core option','Mathematical Literacy'],'#e0efff'),
   S('life-orientation','Life Orientation','🌱','Citizenship, healthy choices, career planning and study skills.',['Compulsory','Careers'],'#fff2ce'),
+  S('technical-sciences','Technical Sciences','⚙️','Applied science for technical subjects.',['Technical','Sciences'],'#e7f7dc','extra'),
+  S('technical-mathematics','Technical Mathematics','📐','Mathematics for technical subjects.',['Technical','Mathematics'],'#e6edff','extra'),
   S('physical-sciences','Physical Sciences','⚗️','Physics, chemistry, mechanics, waves and reactions.',['Elective','Science'],'#e7f7dc','extra'),
   S('life-sciences','Life Sciences','🧬','Cells, biodiversity, human systems, genetics and ecology.',['Elective','Biology'],'#e6f6e8','extra'),
   S('geography','Geography','🌍','Climate, geomorphology, development and mapwork.',['Elective','Mapwork'],'#e3f3f7','extra'),
