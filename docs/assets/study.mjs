@@ -99,7 +99,7 @@ async function loadPrimaryResults(displayYear,box){
     let school=[];
     if([4,5,8].includes(grade)){
       try{
-        school=(await fetchSchoolExams(displayYear)).filter(doc=>doc.grade===grade&&doc.subjectId===subject.id)
+        school=(await fetchSchoolExams(displayYear)).filter(doc=>doc.grade===grade&&doc.year===displayYear&&doc.subjectId===subject.id)
           .sort((a,b)=>a.term-b.term||(a.paper||99)-(b.paper||99)||a.title.localeCompare(b.title));
       }catch{/* Preserve the official DBE and SAASTA resources when the school index is unavailable. */}
     }
