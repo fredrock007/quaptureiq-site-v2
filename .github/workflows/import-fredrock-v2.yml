@@ -9,6 +9,7 @@ on:
       - '.github/scripts/import-dbe-gec.mjs'
       - '.github/scripts/import-dbe-may.mjs'
       - '.github/scripts/import-provincial.mjs'
+      - '.github/scripts/import-nw-exams.mjs'
       - 'docs/assets/primary-resources.json'
       - 'docs/assets/official-study.mjs'
       - 'docs/assets/paper-cover.mjs'

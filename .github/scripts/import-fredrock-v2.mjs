@@ -85,7 +85,7 @@ async function download(relativePath, isOptional = false) {
     // URL in assets/shared.mjs directed to the existing cross-origin endpoint.
     contents = contents.replaceAll(source, destination);
     if (relativePath === "study/index.html") {
-      contents = contents.replace('src="../assets/study.mjs"', 'src="../assets/study.mjs?revision=20261114c"');
+      contents = contents.replace('src="../assets/study.mjs"', 'src="../assets/study.mjs?revision=20261114d"');
     }
     if (relativePath === "index.html") {
       const oldLink = 'href="study/?grade=12&amp;subject=mathematics&amp;term=4&amp;year=2022"';
@@ -131,6 +131,17 @@ async function download(relativePath, isOptional = false) {
       ];
       for (const [oldText,newText] of copyEdits) contents = contents.replaceAll(oldText,newText);
     }
+    bytes = Buffer.from(contents, "utf8");
+  }
+  if (relativePath === "assets/catalog.mjs") {
+    let contents = bytes.toString("utf8");
+    const marker = "  S('physical-sciences','Physical Sciences'";
+    if (!contents.includes(marker)) throw new Error("FET catalog marker missing.");
+    contents = contents.replace(marker, [
+      "  S('technical-sciences','Technical Sciences','⚙️','Applied science for technical subjects.',['Technical','Sciences'],'#e7f7dc','extra'),",
+      "  S('technical-mathematics','Technical Mathematics','📐','Mathematics for technical subjects.',['Technical','Mathematics'],'#e6edff','extra'),",
+      marker
+    ].join("\n"));
     bytes = Buffer.from(contents, "utf8");
   }
   if (relativePath === "assets/shared.mjs") {
@@ -184,6 +195,7 @@ await fs.rm("docs/papers/original", { recursive: true, force: true });
 await fs.rm("docs/assets/practice.mjs", { force: true });
 await fs.copyFile("docs/assets/official-study.mjs", "docs/assets/study.mjs");
 await import("./import-provincial.mjs");
+await import("./import-nw-exams.mjs");
 await import("./import-dbe-gec.mjs");
 await import("./import-dbe-may.mjs");
 await fs.copyFile(".github/scripts/fredrock-search.mjs", "docs/assets/search.mjs");
