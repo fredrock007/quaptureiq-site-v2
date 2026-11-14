@@ -9,6 +9,9 @@ on:
       - '.github/scripts/import-dbe-gec.mjs'
       - '.github/scripts/import-dbe-may.mjs'
       - '.github/scripts/import-provincial.mjs'
+      - 'docs/assets/primary-resources.json'
+      - 'docs/assets/official-study.mjs'
+      - 'docs/assets/paper-cover.mjs'
   workflow_dispatch:
 
 permissions:
@@ -30,7 +33,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Publish verified exams with corrected paper types
+      - name: Publish verified Grades 1–12 exams and assessments
         run: node .github/scripts/import-fredrock-v2.mjs
       - name: Commit the complete website into docs/
         run: |
