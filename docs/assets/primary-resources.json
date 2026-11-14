@@ -1,0 +1,1490 @@
+{
+  "about": "Verified direct-publisher PDFs only. Undated SBA exemplars apply across year filters, not as 2022–2026 past examinations.",
+  "documents": [
+    {
+      "id": "dbe-sba-195",
+      "grades": [
+        1,
+        2,
+        3
+      ],
+      "subjectIds": [
+        "english",
+        "afrikaans",
+        "isixhosa",
+        "isizulu",
+        "sesotho",
+        "setswana",
+        "sepedi",
+        "siswati",
+        "isindebele",
+        "tshivenda",
+        "xitsonga"
+      ],
+      "type": "sba",
+      "title": "First Additional Languages · SBA exemplar",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/Curriculum/NationalCurriculumStatementsGradesR-12/SBAExemplars.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=PLLjO4-j1os%3D&forcedownload=true&mid=7371&portalid=0&tabid=1868",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-sba-199",
+      "grades": [
+        1,
+        2,
+        3
+      ],
+      "subjectIds": [
+        "english",
+        "afrikaans",
+        "isixhosa",
+        "isizulu",
+        "sesotho",
+        "setswana",
+        "sepedi",
+        "siswati",
+        "isindebele",
+        "tshivenda",
+        "xitsonga"
+      ],
+      "type": "sba",
+      "title": "Home Languages · SBA exemplar",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/Curriculum/NationalCurriculumStatementsGradesR-12/SBAExemplars.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=rcHU5AsrzHE%3D&forcedownload=true&mid=7371&portalid=0&tabid=1868",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-sba-201",
+      "grades": [
+        1,
+        2,
+        3
+      ],
+      "subjectIds": [
+        "life-skills"
+      ],
+      "type": "sba",
+      "title": "Life Skills · SBA exemplar",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/Curriculum/NationalCurriculumStatementsGradesR-12/SBAExemplars.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=osteIjagU_o%3D&forcedownload=true&mid=7371&portalid=0&tabid=1868",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-sba-203",
+      "grades": [
+        1,
+        2,
+        3
+      ],
+      "subjectIds": [
+        "mathematics"
+      ],
+      "type": "sba",
+      "title": "Mathematics · SBA exemplar",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/Curriculum/NationalCurriculumStatementsGradesR-12/SBAExemplars.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=-WnCAVyhKf4%3D&forcedownload=true&mid=7371&portalid=0&tabid=1868",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-sba-173",
+      "grades": [
+        7
+      ],
+      "subjectIds": [
+        "life-orientation"
+      ],
+      "type": "sba",
+      "title": "Life Orientation · Grades 5–7 SBA exemplar",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/Curriculum/NationalCurriculumStatementsGradesR-12/SBAExemplars.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=ytCv6aSAieg%3D&forcedownload=true&mid=7374&portalid=0&tabid=1868",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-sba-175",
+      "grades": [
+        4,
+        5,
+        6
+      ],
+      "subjectIds": [
+        "life-skills"
+      ],
+      "type": "sba",
+      "title": "Life Skills · Grades 4–6 SBA exemplar",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/Curriculum/NationalCurriculumStatementsGradesR-12/SBAExemplars.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=GCowq2rr8ls%3D&forcedownload=true&mid=7374&portalid=0&tabid=1868",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-sba-177",
+      "grades": [
+        4,
+        5,
+        6
+      ],
+      "subjectIds": [
+        "mathematics"
+      ],
+      "type": "sba",
+      "title": "Mathematics · Grades 4–6 SBA exemplar",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/Curriculum/NationalCurriculumStatementsGradesR-12/SBAExemplars.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=G4z7Iq-YycE%3D&forcedownload=true&mid=7374&portalid=0&tabid=1868",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-sba-183",
+      "grades": [
+        4,
+        5,
+        6
+      ],
+      "subjectIds": [
+        "nst"
+      ],
+      "type": "sba",
+      "title": "Natural Sciences · Grades 4–6 SBA exemplar",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/Curriculum/NationalCurriculumStatementsGradesR-12/SBAExemplars.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=JOv57gdPiew%3D&forcedownload=true&mid=7374&portalid=0&tabid=1868",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-sba-187",
+      "grades": [
+        4,
+        5,
+        6
+      ],
+      "subjectIds": [
+        "geography",
+        "history"
+      ],
+      "type": "sba",
+      "title": "Social Sciences · Grades 4–6 SBA exemplar",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/Curriculum/NationalCurriculumStatementsGradesR-12/SBAExemplars.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=QumlxNWllo0%3D&forcedownload=true&mid=7374&portalid=0&tabid=1868",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-sba-171",
+      "grades": [
+        7,
+        8
+      ],
+      "subjectIds": [
+        "ems"
+      ],
+      "type": "sba",
+      "title": "Economic & Management Sciences · Grades 7–9 SBA exemplar",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/Curriculum/NationalCurriculumStatementsGradesR-12/SBAExemplars.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=aA5Ypy-kwIc%3D&forcedownload=true&mid=7374&portalid=0&tabid=1868",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-sba-179",
+      "grades": [
+        7,
+        8
+      ],
+      "subjectIds": [
+        "mathematics"
+      ],
+      "type": "sba",
+      "title": "Mathematics · Grades 7–9 SBA exemplar",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/Curriculum/NationalCurriculumStatementsGradesR-12/SBAExemplars.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=lP3L8eLLie0%3D&forcedownload=true&mid=7374&portalid=0&tabid=1868",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-sba-185",
+      "grades": [
+        7,
+        8
+      ],
+      "subjectIds": [
+        "natural-sciences"
+      ],
+      "type": "sba",
+      "title": "Natural Sciences · Grades 7–9 SBA exemplar",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/Curriculum/NationalCurriculumStatementsGradesR-12/SBAExemplars.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=dXT5CEPrnGs%3D&forcedownload=true&mid=7374&portalid=0&tabid=1868",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-sba-189",
+      "grades": [
+        7,
+        8
+      ],
+      "subjectIds": [
+        "geography",
+        "history"
+      ],
+      "type": "sba",
+      "title": "Social Sciences · Grades 7–9 SBA exemplar",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/Curriculum/NationalCurriculumStatementsGradesR-12/SBAExemplars.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=_I3-mbth9jk%3D&forcedownload=true&mid=7374&portalid=0&tabid=1868",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-sba-191",
+      "grades": [
+        7,
+        8
+      ],
+      "subjectIds": [
+        "technology"
+      ],
+      "type": "sba",
+      "title": "Technology · Grades 7–9 SBA exemplar",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/Curriculum/NationalCurriculumStatementsGradesR-12/SBAExemplars.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=-ScBqwMNghA%3D&forcedownload=true&mid=7374&portalid=0&tabid=1868",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-sba-167",
+      "grades": [
+        7,
+        8
+      ],
+      "subjectIds": [
+        "creative-arts"
+      ],
+      "type": "sba",
+      "title": "Dance · Grades 7–9 SBA exemplar",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/Curriculum/NationalCurriculumStatementsGradesR-12/SBAExemplars.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=5syV_fmZ9vg%3D&forcedownload=true&mid=7374&portalid=0&tabid=1868",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-sba-169",
+      "grades": [
+        7,
+        8
+      ],
+      "subjectIds": [
+        "creative-arts"
+      ],
+      "type": "sba",
+      "title": "Drama · Grades 7–9 SBA exemplar",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/Curriculum/NationalCurriculumStatementsGradesR-12/SBAExemplars.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=UbFYIR0qh0s%3D&forcedownload=true&mid=7374&portalid=0&tabid=1868",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-sba-181",
+      "grades": [
+        7,
+        8
+      ],
+      "subjectIds": [
+        "creative-arts"
+      ],
+      "type": "sba",
+      "title": "Music · Grades 7–9 SBA exemplar",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/Curriculum/NationalCurriculumStatementsGradesR-12/SBAExemplars.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=rdkNJK3Aw6A%3D&forcedownload=true&mid=7374&portalid=0&tabid=1868",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-sba-193",
+      "grades": [
+        7,
+        8
+      ],
+      "subjectIds": [
+        "creative-arts"
+      ],
+      "type": "sba",
+      "title": "Visual Arts · Grades 7–9 SBA exemplar",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/Curriculum/NationalCurriculumStatementsGradesR-12/SBAExemplars.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=Kqj5Vpe8A6A%3D&forcedownload=true&mid=7374&portalid=0&tabid=1868",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-diagnostic-2024-111",
+      "grades": [
+        3
+      ],
+      "subjectIds": [
+        "english"
+      ],
+      "year": 2024,
+      "type": "diagnostic",
+      "title": "English Home Language · Grade 3 diagnostic assessment",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=CAgE88ohrys%3D&forcedownload=true&mid=13539&portalid=0&tabid=5154",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-diagnostic-2024-113",
+      "grades": [
+        3
+      ],
+      "subjectIds": [
+        "english"
+      ],
+      "year": 2024,
+      "type": "diagnostic",
+      "title": "English First Additional Language · Grade 3 diagnostic assessment",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=n4fJzsE6dNE%3D&forcedownload=true&mid=13539&portalid=0&tabid=5154",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-diagnostic-2024-115",
+      "grades": [
+        3
+      ],
+      "subjectIds": [
+        "afrikaans"
+      ],
+      "year": 2024,
+      "type": "diagnostic",
+      "title": "Afrikaans Home Language · Grade 3 diagnostic assessment",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=SPw4exirn30%3D&forcedownload=true&mid=13539&portalid=0&tabid=5154",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-diagnostic-2024-121",
+      "grades": [
+        3
+      ],
+      "subjectIds": [
+        "mathematics"
+      ],
+      "year": 2024,
+      "type": "diagnostic",
+      "title": "Mathematics (Afrikaans) · Grade 3 diagnostic assessment",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=yhjpLniHfPI%3D&forcedownload=true&mid=13540&portalid=0&tabid=5154",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-diagnostic-2024-123",
+      "grades": [
+        3
+      ],
+      "subjectIds": [
+        "mathematics"
+      ],
+      "year": 2024,
+      "type": "diagnostic",
+      "title": "Mathematics (English) · Grade 3 diagnostic assessment",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=ibE0WgI3Zl0%3D&forcedownload=true&mid=13540&portalid=0&tabid=5154",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-diagnostic-2024-143",
+      "grades": [
+        6
+      ],
+      "subjectIds": [
+        "afrikaans"
+      ],
+      "year": 2024,
+      "type": "diagnostic",
+      "title": "Afrikaans First Additional Language · Grade 6 diagnostic assessment",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=3sESHDWQDvU%3D&forcedownload=true&mid=13541&portalid=0&tabid=5154",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-diagnostic-2024-145",
+      "grades": [
+        6
+      ],
+      "subjectIds": [
+        "afrikaans"
+      ],
+      "year": 2024,
+      "type": "diagnostic",
+      "title": "Afrikaans Home Language · Grade 6 diagnostic assessment",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=AF9RpUBq4KQ%3D&forcedownload=true&mid=13541&portalid=0&tabid=5154",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-diagnostic-2024-147",
+      "grades": [
+        6
+      ],
+      "subjectIds": [
+        "english"
+      ],
+      "year": 2024,
+      "type": "diagnostic",
+      "title": "English First Additional Language · Grade 6 diagnostic assessment",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=F4dpw-CvdwE%3D&forcedownload=true&mid=13541&portalid=0&tabid=5154",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-diagnostic-2024-149",
+      "grades": [
+        6
+      ],
+      "subjectIds": [
+        "english"
+      ],
+      "year": 2024,
+      "type": "diagnostic",
+      "title": "English Home Language · Grade 6 diagnostic assessment",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=S4W4i8_BgsI%3D&forcedownload=true&mid=13541&portalid=0&tabid=5154",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-diagnostic-2024-151",
+      "grades": [
+        6
+      ],
+      "subjectIds": [
+        "mathematics"
+      ],
+      "year": 2024,
+      "type": "diagnostic",
+      "title": "Mathematics (Afrikaans) · Grade 6 diagnostic assessment",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=Y3XjKI_hBWY%3D&forcedownload=true&mid=13541&portalid=0&tabid=5154",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-diagnostic-2024-153",
+      "grades": [
+        6
+      ],
+      "subjectIds": [
+        "mathematics"
+      ],
+      "year": 2024,
+      "type": "diagnostic",
+      "title": "Mathematics (English) · Grade 6 diagnostic assessment",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=sBF6CWHw9JE%3D&forcedownload=true&mid=13541&portalid=0&tabid=5154",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-diagnostic-2023-85",
+      "grades": [
+        3
+      ],
+      "subjectIds": [
+        "afrikaans"
+      ],
+      "year": 2023,
+      "type": "diagnostic",
+      "title": "Afrikaans Home Language · Grade 3 diagnostic assessment",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2023.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=lAD7z9CsDPQ%3D&forcedownload=true&mid=12778&portalid=0&tabid=4700",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-diagnostic-2023-87",
+      "grades": [
+        3
+      ],
+      "subjectIds": [
+        "english"
+      ],
+      "year": 2023,
+      "type": "diagnostic",
+      "title": "English Home Language · Grade 3 diagnostic assessment",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2023.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=EGfZ_NwGYPU%3D&forcedownload=true&mid=12778&portalid=0&tabid=4700",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-diagnostic-2023-107",
+      "grades": [
+        3
+      ],
+      "subjectIds": [
+        "mathematics"
+      ],
+      "year": 2023,
+      "type": "diagnostic",
+      "title": "Mathematics (Afrikaans) · Grade 3 diagnostic assessment",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2023.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=vtgQZwsl7tM%3D&forcedownload=true&mid=12779&portalid=0&tabid=4700",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-diagnostic-2023-109",
+      "grades": [
+        3
+      ],
+      "subjectIds": [
+        "mathematics"
+      ],
+      "year": 2023,
+      "type": "diagnostic",
+      "title": "Mathematics (English) · Grade 3 diagnostic assessment",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2023.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=L64p8iG_kLg%3D&forcedownload=true&mid=12779&portalid=0&tabid=4700",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-diagnostic-2023-131",
+      "grades": [
+        6
+      ],
+      "subjectIds": [
+        "afrikaans"
+      ],
+      "year": 2023,
+      "type": "diagnostic",
+      "title": "Afrikaans Home Language · Grade 6 diagnostic assessment",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2023.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=gji47hLS_TA%3D&forcedownload=true&mid=12780&portalid=0&tabid=4700",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-diagnostic-2023-133",
+      "grades": [
+        6
+      ],
+      "subjectIds": [
+        "english"
+      ],
+      "year": 2023,
+      "type": "diagnostic",
+      "title": "English Home Language · Grade 6 diagnostic assessment",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2023.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=W10FznQKJKs%3D&forcedownload=true&mid=12780&portalid=0&tabid=4700",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-diagnostic-2023-135",
+      "grades": [
+        6
+      ],
+      "subjectIds": [
+        "mathematics"
+      ],
+      "year": 2023,
+      "type": "diagnostic",
+      "title": "Mathematics (Afrikaans) · Grade 6 diagnostic assessment",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2023.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=hQ3h633U26o%3D&forcedownload=true&mid=12780&portalid=0&tabid=4700",
+      "kind": "exemplar"
+    },
+    {
+      "id": "dbe-diagnostic-2023-137",
+      "grades": [
+        6
+      ],
+      "subjectIds": [
+        "mathematics"
+      ],
+      "year": 2023,
+      "type": "diagnostic",
+      "title": "Mathematics (English) · Grade 6 diagnostic assessment",
+      "publisher": "Department of Basic Education",
+      "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2023.aspx",
+      "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=5zp3_QR-9z8%3D&forcedownload=true&mid=12780&portalid=0&tabid=4700",
+      "kind": "exemplar"
+    },
+    {
+      "id": "saasta-2025-4-6-english",
+      "grades": [
+        4,
+        5,
+        6
+      ],
+      "subjectIds": [
+        "nst"
+      ],
+      "year": 2025,
+      "type": "olympiad",
+      "title": "2025 Natural Sciences Olympiad · Grades 4-6 · English",
+      "publisher": "NRF-SAASTA",
+      "sourceUrl": "https://www.saasta.ac.za/competitions/natural-science-olympiad/",
+      "url": "https://www.saasta.ac.za/wp-content/uploads/2026/02/70501-NRF-NATURAL-SCIENCE-GR-4_6-ENG.pdf",
+      "kind": "paper"
+    },
+    {
+      "id": "saasta-2025-4-6-afrikaans",
+      "grades": [
+        4,
+        5,
+        6
+      ],
+      "subjectIds": [
+        "nst"
+      ],
+      "year": 2025,
+      "type": "olympiad",
+      "title": "2025 Natural Sciences Olympiad · Grades 4-6 · Afrikaans",
+      "publisher": "NRF-SAASTA",
+      "sourceUrl": "https://www.saasta.ac.za/competitions/natural-science-olympiad/",
+      "url": "https://www.saasta.ac.za/wp-content/uploads/2026/02/Natuurwetenskap-Graad-4-6-Olimpiade-Final-8-June-2025.pdf",
+      "kind": "paper"
+    },
+    {
+      "id": "saasta-2024-4-6-english",
+      "grades": [
+        4,
+        5,
+        6
+      ],
+      "subjectIds": [
+        "nst"
+      ],
+      "year": 2024,
+      "type": "olympiad",
+      "title": "2024 Natural Sciences Olympiad · Grades 4-6 · English",
+      "publisher": "NRF-SAASTA",
+      "sourceUrl": "https://www.saasta.ac.za/competitions/natural-science-olympiad/",
+      "url": "https://www.saasta.ac.za/wp-content/uploads/2025/05/ENG-NATURAL-SCIENCES-OLYMPIAD-4-6-002.pdf",
+      "kind": "paper"
+    },
+    {
+      "id": "saasta-2023-4-6-english",
+      "grades": [
+        4,
+        5,
+        6
+      ],
+      "subjectIds": [
+        "nst"
+      ],
+      "year": 2023,
+      "type": "olympiad",
+      "title": "2023 Natural Sciences Olympiad · Grades 4-6 · English",
+      "publisher": "NRF-SAASTA",
+      "sourceUrl": "https://www.saasta.ac.za/competitions/natural-science-olympiad/",
+      "url": "https://www.saasta.ac.za/wp-content/uploads/2024/04/NATURAL-SCIENCES-OLYMPIAD-English-4-6-v1.1.pdf",
+      "kind": "paper"
+    },
+    {
+      "id": "saasta-2022-4-6-english",
+      "grades": [
+        4,
+        5,
+        6
+      ],
+      "subjectIds": [
+        "nst"
+      ],
+      "year": 2022,
+      "type": "olympiad",
+      "title": "2022 Natural Sciences Olympiad · Grades 4-6 · English",
+      "publisher": "NRF-SAASTA",
+      "sourceUrl": "https://www.saasta.ac.za/competitions/natural-science-olympiad/",
+      "url": "https://www.saasta.ac.za/saasta_wp/wp-content/uploads/2023/04/SE_Question-Paper_Natural-Sciences_4-6_English_2022_BE_ET.pdf",
+      "kind": "paper"
+    },
+    {
+      "id": "saasta-2025-7-9-english",
+      "grades": [
+        7,
+        8
+      ],
+      "subjectIds": [
+        "natural-sciences"
+      ],
+      "year": 2025,
+      "type": "olympiad",
+      "title": "2025 Natural Sciences Olympiad · Grades 7-9 · English",
+      "publisher": "NRF-SAASTA",
+      "sourceUrl": "https://www.saasta.ac.za/competitions/natural-science-olympiad/",
+      "url": "https://www.saasta.ac.za/wp-content/uploads/2026/02/70500-NRF-NATURAL-SCIENCE-GR-7_9-ENG.pdf",
+      "kind": "paper"
+    },
+    {
+      "id": "saasta-2024-7-9-english",
+      "grades": [
+        7,
+        8
+      ],
+      "subjectIds": [
+        "natural-sciences"
+      ],
+      "year": 2024,
+      "type": "olympiad",
+      "title": "2024 Natural Sciences Olympiad · Grades 7-9 · English",
+      "publisher": "NRF-SAASTA",
+      "sourceUrl": "https://www.saasta.ac.za/competitions/natural-science-olympiad/",
+      "url": "https://www.saasta.ac.za/wp-content/uploads/2025/05/Natural-Sciences_7-9_English_2024.docx_BE-23-May.pdf",
+      "kind": "paper"
+    },
+    {
+      "id": "saasta-2023-7-9-english",
+      "grades": [
+        7,
+        8
+      ],
+      "subjectIds": [
+        "natural-sciences"
+      ],
+      "year": 2023,
+      "type": "olympiad",
+      "title": "2023 Natural Sciences Olympiad · Grades 7-9 · English",
+      "publisher": "NRF-SAASTA",
+      "sourceUrl": "https://www.saasta.ac.za/competitions/natural-science-olympiad/",
+      "url": "https://www.saasta.ac.za/wp-content/uploads/2024/04/Natural-Sciences_7-9_English_2023.pdf",
+      "kind": "paper"
+    },
+    {
+      "id": "saasta-2022-7-9-english",
+      "grades": [
+        7,
+        8
+      ],
+      "subjectIds": [
+        "natural-sciences"
+      ],
+      "year": 2022,
+      "type": "olympiad",
+      "title": "2022 Natural Sciences Olympiad · Grades 7-9 · English",
+      "publisher": "NRF-SAASTA",
+      "sourceUrl": "https://www.saasta.ac.za/competitions/natural-science-olympiad/",
+      "url": "https://www.saasta.ac.za/wp-content/uploads/2023/04/SE_Question-Paper_Natural-Sciences_7-9_English_2022_BE_ET.pdf",
+      "kind": "paper"
+    },
+    {
+      "id": "saasta-2025-7-9-memo",
+      "grades": [
+        7,
+        8
+      ],
+      "subjectIds": [
+        "natural-sciences"
+      ],
+      "year": 2025,
+      "type": "olympiad",
+      "title": "2025 Natural Sciences Olympiad · Grades 7–9 · Memorandum",
+      "publisher": "NRF-SAASTA",
+      "sourceUrl": "https://www.saasta.ac.za/competitions/natural-science-olympiad/",
+      "url": "https://www.saasta.ac.za/wp-content/uploads/2026/02/Natural-Science-Gr-7-9_Memo_2025.pdf",
+      "kind": "memo"
+    },
+    {
+      "id": "saasta-2024-7-9-memo",
+      "grades": [
+        7,
+        8
+      ],
+      "subjectIds": [
+        "natural-sciences"
+      ],
+      "year": 2024,
+      "type": "olympiad",
+      "title": "2024 Natural Sciences Olympiad · Grades 7–9 · Explanatory memorandum",
+      "publisher": "NRF-SAASTA",
+      "sourceUrl": "https://www.saasta.ac.za/competitions/natural-science-olympiad/",
+      "url": "https://www.saasta.ac.za/wp-content/uploads/2025/05/Gr-7-9-SP-2024-NSc-Explanations.pdf",
+      "kind": "memo"
+    },
+{
+    "id": "dbe-diagnostic-2024-85",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "afrikaans"
+    ],
+    "year": 2024,
+    "type": "diagnostic",
+    "title": "Afrikaans FAL · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=Se40HVlT_nM%3D&forcedownload=true&mid=13539&portalid=0&tabid=5154",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2024-87",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "tshivenda"
+    ],
+    "year": 2024,
+    "type": "diagnostic",
+    "title": "Tshivenda HL · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=uEfqg_6IEnA%3D&forcedownload=true&mid=13539&portalid=0&tabid=5154",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2024-89",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "tshivenda"
+    ],
+    "year": 2024,
+    "type": "diagnostic",
+    "title": "Tshivenda FAL · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=24b830iDrv8%3D&forcedownload=true&mid=13539&portalid=0&tabid=5154",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2024-91",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "siswati"
+    ],
+    "year": 2024,
+    "type": "diagnostic",
+    "title": "siSwati HL · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=hCfGBHxy-dE%3D&forcedownload=true&mid=13539&portalid=0&tabid=5154",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2024-93",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "siswati"
+    ],
+    "year": 2024,
+    "type": "diagnostic",
+    "title": "siSwati FAL · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=v_PqD7oRIOg%3D&forcedownload=true&mid=13539&portalid=0&tabid=5154",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2024-95",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "setswana"
+    ],
+    "year": 2024,
+    "type": "diagnostic",
+    "title": "Setswana HL · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=Vf4mMkL5ipQ%3D&forcedownload=true&mid=13539&portalid=0&tabid=5154",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2024-97",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "setswana"
+    ],
+    "year": 2024,
+    "type": "diagnostic",
+    "title": "Setswana FAL · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=vE0TMBGyLwQ%3D&forcedownload=true&mid=13539&portalid=0&tabid=5154",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2024-99",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "sesotho"
+    ],
+    "year": 2024,
+    "type": "diagnostic",
+    "title": "Sesotho HL · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=6JRUuSbAv4Q%3D&forcedownload=true&mid=13539&portalid=0&tabid=5154",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2024-101",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "sesotho"
+    ],
+    "year": 2024,
+    "type": "diagnostic",
+    "title": "Sesotho FAL · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=HDIGOZ044JM%3D&forcedownload=true&mid=13539&portalid=0&tabid=5154",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2024-103",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "sepedi"
+    ],
+    "year": 2024,
+    "type": "diagnostic",
+    "title": "Sepedi · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=KSlXz5mhTFM%3D&forcedownload=true&mid=13539&portalid=0&tabid=5154",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2024-105",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "isizulu"
+    ],
+    "year": 2024,
+    "type": "diagnostic",
+    "title": "isiZulu · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=Hv91S-i9tCM%3D&forcedownload=true&mid=13539&portalid=0&tabid=5154",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2024-107",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "isixhosa"
+    ],
+    "year": 2024,
+    "type": "diagnostic",
+    "title": "isiXhosa · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=voL5CkFKq_U%3D&forcedownload=true&mid=13539&portalid=0&tabid=5154",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2024-109",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "isindebele"
+    ],
+    "year": 2024,
+    "type": "diagnostic",
+    "title": "isiNdebele · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=oNgYEl9YbC8%3D&forcedownload=true&mid=13539&portalid=0&tabid=5154",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2024-117",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "xitsonga"
+    ],
+    "year": 2024,
+    "type": "diagnostic",
+    "title": "XiTsonga FAL · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=QoesK242RLA%3D&forcedownload=true&mid=13539&portalid=0&tabid=5154",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2024-119",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "xitsonga"
+    ],
+    "year": 2024,
+    "type": "diagnostic",
+    "title": "XiTsonga HL · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=857NV5jxmlg%3D&forcedownload=true&mid=13539&portalid=0&tabid=5154",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2024-125",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "mathematics"
+    ],
+    "year": 2024,
+    "type": "diagnostic",
+    "title": "Mathematics (isiNdebele) · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=-D3xpUmTSbE%3D&forcedownload=true&mid=13540&portalid=0&tabid=5154",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2024-127",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "mathematics"
+    ],
+    "year": 2024,
+    "type": "diagnostic",
+    "title": "Mathematics (isiXhosa) · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=2lPh5K0p6lY%3D&forcedownload=true&mid=13540&portalid=0&tabid=5154",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2024-129",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "mathematics"
+    ],
+    "year": 2024,
+    "type": "diagnostic",
+    "title": "Mathematics (isiZulu) · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=C1nt3ory5GI%3D&forcedownload=true&mid=13540&portalid=0&tabid=5154",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2024-131",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "mathematics"
+    ],
+    "year": 2024,
+    "type": "diagnostic",
+    "title": "Mathematics (Sepedi) · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=wcoLvG5mQyQ%3D&forcedownload=true&mid=13540&portalid=0&tabid=5154",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2024-133",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "mathematics"
+    ],
+    "year": 2024,
+    "type": "diagnostic",
+    "title": "Mathematics (Sesotho) · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=5h0ufhlLlCA%3D&forcedownload=true&mid=13540&portalid=0&tabid=5154",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2024-135",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "mathematics"
+    ],
+    "year": 2024,
+    "type": "diagnostic",
+    "title": "Mathematics (Setswana) · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=26o2E09yZo8%3D&forcedownload=true&mid=13540&portalid=0&tabid=5154",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2024-137",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "mathematics"
+    ],
+    "year": 2024,
+    "type": "diagnostic",
+    "title": "Mathematics (siSwati) · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=ZJKlSNTm8MA%3D&forcedownload=true&mid=13540&portalid=0&tabid=5154",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2024-139",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "mathematics"
+    ],
+    "year": 2024,
+    "type": "diagnostic",
+    "title": "Mathematics (Tshivenda) · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=jtxcDhbcTaM%3D&forcedownload=true&mid=13540&portalid=0&tabid=5154",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2024-141",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "mathematics"
+    ],
+    "year": 2024,
+    "type": "diagnostic",
+    "title": "Mathematics (XiTsonga) · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2024.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=CX8tNv6Y6iM%3D&forcedownload=true&mid=13540&portalid=0&tabid=5154",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2023-89",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "isindebele"
+    ],
+    "year": 2023,
+    "type": "diagnostic",
+    "title": "isiNdebele · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2023.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=oNgYEl9YbC8%3D&forcedownload=true&mid=12778&portalid=0&tabid=4700",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2023-91",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "isixhosa"
+    ],
+    "year": 2023,
+    "type": "diagnostic",
+    "title": "isiXhosa · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2023.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=voL5CkFKq_U%3D&forcedownload=true&mid=12778&portalid=0&tabid=4700",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2023-93",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "isizulu"
+    ],
+    "year": 2023,
+    "type": "diagnostic",
+    "title": "isiZulu · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2023.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=Hv91S-i9tCM%3D&forcedownload=true&mid=12778&portalid=0&tabid=4700",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2023-95",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "sepedi"
+    ],
+    "year": 2023,
+    "type": "diagnostic",
+    "title": "Sepedi · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2023.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=EL2nZ3-xCNQ%3D&forcedownload=true&mid=12778&portalid=0&tabid=4700",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2023-97",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "sesotho"
+    ],
+    "year": 2023,
+    "type": "diagnostic",
+    "title": "Sesotho · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2023.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=TGm1bI0gXT0%3D&forcedownload=true&mid=12778&portalid=0&tabid=4700",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2023-99",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "setswana"
+    ],
+    "year": 2023,
+    "type": "diagnostic",
+    "title": "Setswana · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2023.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=SEUSYKq_dmo%3D&forcedownload=true&mid=12778&portalid=0&tabid=4700",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2023-101",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "siswati"
+    ],
+    "year": 2023,
+    "type": "diagnostic",
+    "title": "siSwati · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2023.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=CjZuP0xmBbY%3D&forcedownload=true&mid=12778&portalid=0&tabid=4700",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2023-103",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "tshivenda"
+    ],
+    "year": 2023,
+    "type": "diagnostic",
+    "title": "Tshivenda · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2023.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=wyOPHGI26Ew%3D&forcedownload=true&mid=12778&portalid=0&tabid=4700",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2023-105",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "xitsonga"
+    ],
+    "year": 2023,
+    "type": "diagnostic",
+    "title": "XiTsonga · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2023.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=QLl9BVKFJxA%3D&forcedownload=true&mid=12778&portalid=0&tabid=4700",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2023-111",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "mathematics"
+    ],
+    "year": 2023,
+    "type": "diagnostic",
+    "title": "Mathematics (isiNdebele) · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2023.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=1ZL3feCcITU%3D&forcedownload=true&mid=12779&portalid=0&tabid=4700",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2023-113",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "mathematics"
+    ],
+    "year": 2023,
+    "type": "diagnostic",
+    "title": "Mathematics (isiXhosa) · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2023.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=TDYgI7aJc30%3D&forcedownload=true&mid=12779&portalid=0&tabid=4700",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2023-115",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "mathematics"
+    ],
+    "year": 2023,
+    "type": "diagnostic",
+    "title": "Mathematics (isiZulu) · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2023.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=DkNNLT7bnBM%3D&forcedownload=true&mid=12779&portalid=0&tabid=4700",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2023-117",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "mathematics"
+    ],
+    "year": 2023,
+    "type": "diagnostic",
+    "title": "Mathematics (Sepedi) · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2023.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=qCYvC0zpGn4%3D&forcedownload=true&mid=12779&portalid=0&tabid=4700",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2023-119",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "mathematics"
+    ],
+    "year": 2023,
+    "type": "diagnostic",
+    "title": "Mathematics (Sesotho) · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2023.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=BXl9VxHJyyQ%3D&forcedownload=true&mid=12779&portalid=0&tabid=4700",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2023-121",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "mathematics"
+    ],
+    "year": 2023,
+    "type": "diagnostic",
+    "title": "Mathematics (Setswana) · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2023.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=cngzmnfgV3M%3D&forcedownload=true&mid=12779&portalid=0&tabid=4700",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2023-123",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "mathematics"
+    ],
+    "year": 2023,
+    "type": "diagnostic",
+    "title": "Mathematics (siSwati) · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2023.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=Lny41zeWzKY%3D&forcedownload=true&mid=12779&portalid=0&tabid=4700",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2023-125",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "mathematics"
+    ],
+    "year": 2023,
+    "type": "diagnostic",
+    "title": "Mathematics (Tshivenda) · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2023.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=kA_lSMKTbUg%3D&forcedownload=true&mid=12779&portalid=0&tabid=4700",
+    "kind": "exemplar"
+  },
+  {
+    "id": "dbe-diagnostic-2023-127",
+    "grades": [
+      3
+    ],
+    "subjectIds": [
+      "mathematics"
+    ],
+    "year": 2023,
+    "type": "diagnostic",
+    "title": "Mathematics (XiTsonga) · Grade 3 diagnostic assessment",
+    "publisher": "Department of Basic Education",
+    "sourceUrl": "https://www.education.gov.za/DiagnosticTestItems2023.aspx",
+    "url": "https://www.education.gov.za/LinkClick.aspx?fileticket=sM5_QF_cfzc%3D&forcedownload=true&mid=12779&portalid=0&tabid=4700",
+    "kind": "exemplar"
+  }
+  ]
+}
