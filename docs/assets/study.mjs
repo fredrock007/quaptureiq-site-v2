@@ -52,7 +52,7 @@ function makeLink(doc){
   const kind=/\b(?:answer\s*books?|data files?|addendum|annexure|supplement)\b/i.test(doc.title)?'supplement':doc.kind;
   const type=kind==='memo'?'Memorandum':kind==='supplement'?'Supporting document':'Exam paper';
   const isZip=doc.format==='ZIP'||/\.zip(?:[?#]|$)/i.test(doc.url);
-  const origin=doc.publisher==='North West Department of Education'?'North West · provincial examinations':grade===12?'Department of Basic Education':doc.publisher==='Department of Basic Education'?'DBE · GEC pilot':`Eastern Cape · ${grade===9?'GEC assessment':'November exam'}`;
+  const origin=doc.publisher==="Noah's Ark Academy"?"Noah's Ark Academy · school examinations":doc.publisher==='North West Department of Education'?'North West · provincial examinations':grade===12?'Department of Basic Education':doc.publisher==='Department of Basic Education'?'DBE · GEC pilot':`Eastern Cape · ${grade===9?'GEC assessment':'November exam'}`;
   return `<article class="real-document"><div class="real-document-top"><div class="fred-cover-layout">${paperCover({grade,year,subject:doc.subject,title:doc.title,kind,url:doc.url})}<div class="fred-cover-content"><span class="doc-type">${type}</span><h3>${esc(doc.title)}</h3><p>Grade ${grade} · ${esc(doc.subject)} · ${origin} ${year}${doc.session&&!(grade===9&&doc.publisher==='Department of Basic Education')?` · ${esc(doc.session)}`:''}${isZip?' · ZIP archive':''}</p></div></div><div class="real-actions">${isZip?'':`<a href="${esc(doc.url)}" target="_blank" rel="noopener noreferrer">View original ↗</a>`}<a href="${esc(isZip?doc.url:download.href)}" target="_blank" rel="noopener noreferrer">Download ${isZip?'ZIP':'↓'}</a></div></div></article>`;
 }
 
@@ -68,6 +68,15 @@ async function fetchNorthWest(displayYear){
   if(!response.ok)throw new Error('North West examination index unavailable');
   const data=await response.json();
   if(!Array.isArray(data.documents))throw new Error('Invalid North West examination index');
+  return data.documents;
+}
+
+async function fetchSchoolExams(displayYear){
+  if(displayYear<2022||displayYear>2025)return [];
+  const response=await fetch(new URL('./school-exams.json',import.meta.url));
+  if(!response.ok)throw new Error('School examination index unavailable');
+  const data=await response.json();
+  if(!Array.isArray(data.documents))throw new Error('Invalid school examination index');
   return data.documents;
 }
 
@@ -87,8 +96,16 @@ async function loadPrimaryResults(displayYear,box){
           .sort((a,b)=>a.session.localeCompare(b.session)||(a.paper||99)-(b.paper||99)||a.title.localeCompare(b.title));
       }catch{/* Keep the DBE and SAASTA collections visible if provincial site is down. */}
     }
+    let school=[];
+    if([4,5,8].includes(grade)){
+      try{
+        school=(await fetchSchoolExams(displayYear)).filter(doc=>doc.grade===grade&&doc.subjectId===subject.id)
+          .sort((a,b)=>a.term-b.term||(a.paper||99)-(b.paper||99)||a.title.localeCompare(b.title));
+      }catch{/* Preserve the official DBE and SAASTA resources when the school index is unavailable. */}
+    }
     if(!box.isConnected||displayYear!==year)return;
-    box.innerHTML=`<div class="real-note">🏛️ Verified publisher documents for Grade ${grade}. ${provincial.length?'The North West provincial records are actual 2024 exam papers and memorandums. ':''}School-based exemplars, diagnostic items and Olympiad papers are <strong>not standard school term examinations</strong>.</div>
+    box.innerHTML=`<div class="real-note">🏛️ Verified publisher documents for Grade ${grade}. ${provincial.length?'The North West provincial records are actual 2024 exam papers and memorandums. ':''}${school.length?'The academy papers below are original school publications, not national or provincial government examinations. ':''}School-based exemplars, diagnostic items and Olympiad papers are <strong>not standard school term examinations</strong>.</div>
+      ${school.length?`<h3 class="real-group-heading">${displayYear} school examination papers</h3><p class="real-group-intro"><strong>${school.length} original Noah's Ark Academy document${school.length===1?'':'s'} for ${esc(subject.name)}.</strong> June and November school examinations, credited to the school that published them. Tap a cover to open the original PDF.</p><div class="real-docs">${school.map(makeLink).join('')}</div><p class="real-attribution">Source: <a href="https://noahsark.org.za/past-exams/" target="_blank" rel="noopener noreferrer">Noah's Ark Academy past exams ↗</a>. These are school-published papers, not Department of Basic Education papers.</p>`:''}
       ${provincial.length?`<h3 class="real-group-heading">${displayYear} provincial examination papers</h3><p class="real-group-intro"><strong>${provincial.length} North West examination document${provincial.length===1?'':'s'}.</strong> Tap a cover to open the original official PDF.</p><div class="real-docs">${provincial.map(makeLink).join('')}</div><p class="real-attribution">Source: <a href="https://education.nwpg.gov.za/?page_id=4644" target="_blank" rel="noopener noreferrer">North West Department of Education ↗</a>.</p>`:''}
       <h3 class="real-group-heading">${displayYear} published papers &amp; assessments</h3>
       ${dated.length?`<p class="real-group-intro"><strong>${dated.length} verified ${displayYear} document${dated.length===1?'':'s'}.</strong> Tap a cover to open the original PDF from its publisher.</p><div class="real-docs">${dated.map(makePrimaryLink).join('')}</div>`:
