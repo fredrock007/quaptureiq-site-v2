@@ -6,7 +6,7 @@ const subjects=subjectsForGrade(grade);
 const grid=document.getElementById('subject-grid');
 const search=document.getElementById('subject-search');
 const summary=document.getElementById('results-summary');
-let category='all',term='all',year=2026;
+let category='all',term='all',year=[4,5,8].includes(grade)?2024:2026;
 
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function card(subject){
@@ -70,6 +70,7 @@ dialog.addEventListener('close',remember);
 dialog.querySelectorAll('.tester-actions a').forEach(a=>a.addEventListener('click',()=>dialog.close()));
 window.setTimeout(()=>{if(!dismissed()&&!dialog.open&&typeof dialog.showModal==='function'&&document.visibilityState==='visible')dialog.showModal();},5000);
 render();
+document.querySelectorAll('#year-pills button[data-year]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.year)===year)));
 document.getElementById('term-pills')?.parentElement?.remove();
 initHeaderTTS();
 initVisitorCounter();
