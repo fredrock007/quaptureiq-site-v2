@@ -85,7 +85,7 @@ async function download(relativePath, isOptional = false) {
     // URL in assets/shared.mjs directed to the existing cross-origin endpoint.
     contents = contents.replaceAll(source, destination);
     if (relativePath === "study/index.html") {
-      contents = contents.replace('src="../assets/study.mjs"', 'src="../assets/study.mjs?revision=20261114d"');
+      contents = contents.replace('src="../assets/study.mjs"', 'src="../assets/study.mjs?revision=20261114e"');
     }
     if (relativePath === "index.html") {
       const oldLink = 'href="study/?grade=12&amp;subject=mathematics&amp;term=4&amp;year=2022"';
@@ -196,6 +196,7 @@ await fs.rm("docs/assets/practice.mjs", { force: true });
 await fs.copyFile("docs/assets/official-study.mjs", "docs/assets/study.mjs");
 await import("./import-provincial.mjs");
 await import("./import-nw-exams.mjs");
+await import("./import-school-exams.mjs");
 await import("./import-dbe-gec.mjs");
 await import("./import-dbe-may.mjs");
 await fs.copyFile(".github/scripts/fredrock-search.mjs", "docs/assets/search.mjs");
