@@ -63,8 +63,14 @@ function panelHTML(html,id){
   const match=marker.exec(html);
   if(!match)return '';
   const begin=match.index+match[0].length;
-  // The official site's published tab panels contain <p><a> rows only.
-  return html.slice(begin,html.indexOf('</div>',begin));
+  // GET tabs have a nested decorative <div> before the PDF list. Match
+  // the closing tag of the actual panel instead of its first child.
+  let depth=1;
+  for(const tag of html.slice(begin).matchAll(/<\/?div\b[^>]*>/gi)){
+    depth+=tag[0].startsWith('</')?-1:1;
+    if(depth===0)return html.slice(begin,begin+tag.index);
+  }
+  return '';
 }
 function parsePanel(html,panel){
   const chunk=panelHTML(html,panel.id);
@@ -75,6 +81,9 @@ function parsePanel(html,panel){
     const href=match[1].match(/\bhref\s*=\s*["']([^"']+)["']/i)?.[1];
     const originalTitle=decode(match[2]);
     if(!href||!originalTitle)continue;
+    // Reject documents visibly labelled for a different grade when the
+    // publisher placed them within the Grade 10 section by mistake.
+    if(panel.grade===10&&/\b(?:NW\s*(?:6|7|8|9|11|12)|S[12]\s+(?:6|7|8|9|11|12))\b/i.test(originalTitle))continue;
     let url;
     try{url=new URL(decode(href),SOURCE)}catch{continue}
     if(!['education.nwpg.gov.za','desd.nwpg.gov.za'].includes(url.hostname))continue;
