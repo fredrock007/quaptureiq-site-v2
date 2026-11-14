@@ -1,6 +1,8 @@
 /**
  * Original school-published examination PDFs, Grade 4, 5 and 8.
  * Source: Noah's Ark Academy's publicly accessible Past Exams page.
+ * GitHub-hosted runners cannot consistently fetch this WordPress site,
+ * so its original PDF URLs are captured in an audited source list.
  *
  * No PDFs are copied to FredRock. This creates a credited index of exact
  * publisher URLs, preserving their original filenames and source attribution.
@@ -18,16 +20,16 @@ const PUBLISHER="Noah's Ark Academy";
 const GRADES=[4,5,8];
 const SUBJECTS=[
   [/NATURAL\s+SCIENCE(?:S)?\s*(?:&|AND|\+)\s*TECHNOLOGY|NATURAL\s+SCIENCE\s+TECHNOLOGY|\bN\s*&\s*T\b|\bNST\b/i,g=>g===8?'natural-sciences':'nst','Natural Sciences & Technology'],
-  [/ECONOMIC\s*(?:&|AND)?\s*MANAGEMENT|\bEMS\b/i,()=> 'ems','Economic & Management Sciences'],
+  [/ECONOMIC\s*(?:&|AND)?\s*MANAGEMENT|\bEMS\b|\bLEMS\b/i,()=> 'ems','Economic & Management Sciences'],
   [/LIFE\s+ORIENTATION/i,()=> 'life-orientation','Life Orientation'],
   [/LIFE\s*SKILLS?/i,()=> 'life-skills','Life Skills'],
   [/CREATIVE\s+ARTS?/i,g=>g===8?'creative-arts':'life-skills','Creative Arts'],
   [/MATHEMATICS|\bMATHS?\b/i,()=> 'mathematics','Mathematics'],
-  [/GEOGRAPHY/i,()=> 'geography','Geography'],
+  [/GEOGRAPHY|GEORGRAPHY/i,()=> 'geography','Geography'],
   [/HISTORY/i,()=> 'history','History'],
-  [/ENGLISH|\bHL\s*PAPER|\bHL\s*P[1-3]\b|\bHL-PAPER/i,()=> 'english','English'],
+  [/ENGLISH|\bHL\s*PAPER|\bHL\s*P[1-3]\b|\bHL-PAPER|\bHOME\s+LANGUAGE\b/i,()=> 'english','English'],
   [/AFRIKAANS/i,()=> 'afrikaans','Afrikaans'],
-  [/SETSWANA/i,()=> 'setswana','Setswana'],
+  [/SETSWANA|SETSWNA/i,()=> 'setswana','Setswana'],
   [/ISIXHOSA/i,()=> 'isixhosa','isiXhosa'],
   [/ISIZULU/i,()=> 'isizulu','isiZulu'],
   [/SESOTHO/i,()=> 'sesotho','Sesotho'],
@@ -47,7 +49,7 @@ function collect(html){
   // Limit the source to the three named grade sections. The next grade
   // heading terminates the current section.
   const headings=[...html.matchAll(/<h3\b[^>]*class=["'][^"']*\baccordion_title\b[^"']*["'][^>]*>\s*Grade\s+([1-9])\s*<\/h3>/gi)];
-  if(headings.length<8)throw new Error('School archive grade headings not found');
+  if(headings.length<3)throw new Error('School archive grade headings not found');
   for(let i=0;i<headings.length;i++){
     const grade=Number(headings[i][1]);
     if(!GRADES.includes(grade))continue;
@@ -94,17 +96,19 @@ function collect(html){
 }
 
 async function run(){
-  let html;
-  for(let attempt=1;attempt<=3;attempt++){
-    try{
-      const response=await fetch(SOURCE,{headers:{'User-Agent':'Mozilla/5.0 FredRock-Paper-Club-V2'},signal:AbortSignal.timeout(35000)});
-      if(!response.ok)throw new Error('School archive HTTP '+response.status);
-      html=await response.text();break;
-    }catch(error){
-      if(attempt===3)throw error;
-      await new Promise(resolve=>setTimeout(resolve,1000*attempt));
-    }
+  const sourceList=await fs.readFile(new URL('./school-exams-source.txt',import.meta.url),'utf8');
+  const gradeLinks=new Map(GRADES.map(grade=>[grade,[]]));
+  for(const line of sourceList.split(/\r?\n/)){
+    const relative=line.trim();
+    if(!relative||relative.startsWith('#'))continue;
+    const match=relative.match(/^\d{4}\/\d{2}\/(20(?:22|23|24|25))-Grade-(4|5|8)-Term-([24])[-_.][^\s]+\.pdf$/i);
+    if(!match)throw new Error('Malformed verified school PDF path: '+relative);
+    const grade=Number(match[2]);
+    const label=relative.split('/').pop().replace(/^20\d{2}-Grade-[458]-Term-[24]-/i,'')
+      .replace(/\.pdf$/i,'').replace(/[-_]/g,' ');
+    gradeLinks.get(grade).push('<a href="https://noahsark.org.za/wp-content/uploads/'+relative+'">'+label+'</a>');
   }
+  const html=GRADES.map(grade=>'<h3 class="accordion_title">Grade '+grade+'</h3>'+gradeLinks.get(grade).join('\n')).join('\n');
   const documents=collect(html);
   const counts=Object.fromEntries(GRADES.map(grade=>[grade,documents.filter(d=>d.grade===grade).length]));
   if(GRADES.some(grade=>counts[grade]<15)){

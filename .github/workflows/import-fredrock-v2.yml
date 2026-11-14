@@ -11,6 +11,7 @@ on:
       - '.github/scripts/import-provincial.mjs'
       - '.github/scripts/import-nw-exams.mjs'
       - '.github/scripts/import-school-exams.mjs'
+      - '.github/scripts/school-exams-source.txt'
       - 'docs/assets/primary-resources.json'
       - 'docs/assets/official-study.mjs'
       - 'docs/assets/paper-cover.mjs'
