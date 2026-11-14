@@ -1,4 +1,4 @@
-/** FredRock Paper Club: genuine examination documents only. */
+/** FredRock Paper Club: publisher-verified exam and assessment documents only. */
 import {YEARS,phaseForGrade,subjectForGrade,PLAY_URL} from './catalog.mjs';
 import {footerMarkup,initTesterPopup,initVisitorCounter,initHeaderTTS} from './shared.mjs';
 import {mappedSubject} from './dbe-2022.mjs';
@@ -39,6 +39,9 @@ css.textContent=`
   .real-main-link{display:inline-block;margin:17px 0;background:#087e78;color:#fff;text-decoration:none;font-weight:900;border-radius:12px;padding:12px 16px}
   .real-empty{border-radius:15px;border:1px dashed #c9d7ce;background:white;padding:24px;color:#425c61}
   .real-attribution{font-size:.84rem;color:#647780;margin-top:13px}
+  .real-group-heading{font-size:1.25rem;color:#173541;margin:22px 0 8px}
+  .real-group-intro{font-size:.9rem;color:#50666b;margin:0 0 14px}
+  .real-resource-tag{display:inline-block;font-size:.69rem;font-weight:900;border-radius:999px;padding:5px 9px;background:#e7f1f8;color:#24556b;margin:4px 0 2px}
   @media(max-width:580px){.real-document-top{display:block}.real-actions{margin-top:12px}.real-actions a,.real-actions button{flex:1;text-align:center}}
   @media print{.real-year-nav,.real-actions,.quapture-panel{display:none!important}}
 `;
@@ -52,15 +55,42 @@ function makeLink(doc){
   const origin=grade===12?'Department of Basic Education':doc.publisher==='Department of Basic Education'?'DBE · GEC pilot':`Eastern Cape · ${grade===9?'GEC assessment':'November exam'}`;
   return `<article class="real-document"><div class="real-document-top"><div class="fred-cover-layout">${paperCover({grade,year,subject:doc.subject,title:doc.title,kind,url:doc.url})}<div class="fred-cover-content"><span class="doc-type">${type}</span><h3>${esc(doc.title)}</h3><p>Grade ${grade} · ${esc(doc.subject)} · ${origin} ${year}${doc.session&&!(grade===9&&doc.publisher==='Department of Basic Education')?` · ${esc(doc.session)}`:''}${isZip?' · ZIP archive':''}</p></div></div><div class="real-actions">${isZip?'':`<a href="${esc(doc.url)}" target="_blank" rel="noopener noreferrer">View original ↗</a>`}<a href="${esc(isZip?doc.url:download.href)}" target="_blank" rel="noopener noreferrer">Download ${isZip?'ZIP':'↓'}</a></div></div></article>`;
 }
+
+function makePrimaryLink(doc){
+  const label=doc.type==='olympiad'?(doc.kind==='memo'?'Olympiad memorandum':'Olympiad paper'):doc.type==='diagnostic'?'Diagnostic assessment':'School-based assessment exemplar';
+  const fileYear=doc.year||'Undated';
+  return `<article class="real-document"><div class="real-document-top"><div class="fred-cover-layout">${paperCover({grade,year:doc.year||'CAPS',subject:subject.name,title:doc.title,kind:doc.kind,url:doc.url})}<div class="fred-cover-content"><span class="real-resource-tag">${esc(label)}</span><h3>${esc(doc.title)}</h3><p>${esc(doc.publisher)} · ${fileYear}${doc.grades.length>1?' · Covers Grades '+doc.grades.join(', '):''}</p></div></div><div class="real-actions"><a href="${esc(doc.url)}" target="_blank" rel="noopener noreferrer">Open PDF ↗</a><a href="${esc(doc.sourceUrl)}" target="_blank" rel="noopener noreferrer">Publisher ↗</a></div></div></article>`;
+}
+
+async function loadPrimaryResults(displayYear,box){
+  try{
+    const response=await fetch(new URL('./primary-resources.json',import.meta.url));
+    if(!response.ok)throw new Error('Primary resource index unavailable');
+    const data=await response.json();
+    if(!Array.isArray(data.documents))throw new Error('Invalid resource index');
+    const matching=data.documents.filter(doc=>doc.grades.includes(grade)&&doc.subjectIds.includes(subject.id));
+    const dated=matching.filter(doc=>doc.year===displayYear).sort((a,b)=>a.type.localeCompare(b.type)||a.title.localeCompare(b.title));
+    const undated=matching.filter(doc=>doc.year==null).sort((a,b)=>a.title.localeCompare(b.title));
+    if(!box.isConnected||displayYear!==year)return;
+    box.innerHTML=`<div class="real-note">🏛️ Verified Department of Basic Education resources${dated.some(doc=>doc.type==='olympiad')?' and NRF-SAASTA Natural Sciences Olympiad papers':''} for Grade ${grade}. School-based exemplars, diagnostic items and Olympiad papers are <strong>not standard school term examinations</strong>.</div>
+      <h3 class="real-group-heading">${displayYear} published papers &amp; assessments</h3>
+      ${dated.length?`<p class="real-group-intro"><strong>${dated.length} verified ${displayYear} document${dated.length===1?'':'s'}.</strong> Tap a cover to open the original PDF from its publisher.</p><div class="real-docs">${dated.map(makePrimaryLink).join('')}</div>`:
+        `<div class="real-empty"><strong>No verified Grade ${grade} ${esc(subject.name)} paper dated ${displayYear} in this collection yet.</strong><p>Grades 1–8 do not have a complete national annual school exam archive. Undated official exemplar material is shown below where available.</p></div>`}
+      ${undated.length?`<h3 class="real-group-heading">Official CAPS assessment exemplars</h3><p class="real-group-intro">${undated.length} Department of Basic Education booklet${undated.length===1?'':'s'} covering assessment tasks for this subject. <strong>These booklets are not dated ${displayYear} exams</strong>; many cover an entire grade band.</p><div class="real-docs">${undated.map(makePrimaryLink).join('')}</div>`:''}
+      <p class="real-attribution">The PDFs open directly from their original publishers and retain their copyright. This catalogue does not claim these exemplars were written as official ${displayYear} school examinations. <a href="https://www.education.gov.za/Curriculum/NationalCurriculumStatementsGradesR-12/SBAExemplars.aspx" target="_blank" rel="noopener noreferrer">DBE SBA collection ↗</a>${matching.some(doc=>doc.type==='olympiad')?' · <a href="https://www.saasta.ac.za/competitions/natural-science-olympiad/" target="_blank" rel="noopener noreferrer">SAASTA past-paper collection ↗</a>':''}.</p>`;
+  }catch{
+    if(box.isConnected&&displayYear===year)box.innerHTML='<div class="real-empty">The Grade 1–8 resource index could not load. <a href="https://www.education.gov.za/Curriculum/NationalCurriculumStatementsGradesR-12/SBAExemplars.aspx" target="_blank" rel="noopener noreferrer">Browse verified DBE assessment exemplars ↗</a></div>';
+  }
+}
 installCoverStyles();
 
 function render(){
   if(!phase||!subject){target.innerHTML='<section class="container"><h1>Subject not found.</h1><a href="../">Choose a grade →</a></section>';return;}
-  document.title=`${subject.name} examination papers · Grade ${grade} | FredRock Paper Club`;
+  document.title=`${subject.name} published exam resources · Grade ${grade} | FredRock Paper Club`;
   target.innerHTML=`<section class="study-intro real-hero"><div class="study-breadcrumbs"><a href="../">Home</a> / <a href="../phase/${phase.id}/">${phase.name}</a> / <a href="../grade${grade}/">Grade ${grade}</a> / ${esc(subject.name)}</div>
-    <span class="section-kicker">Real exam papers and memorandums</span><h1>Grade ${grade} ${esc(subject.name)}<br><em style="color:#087e78">Examination Archive.</em></h1>
-    <p>Browse authentic, published examination papers. We only list documents with identifiable sources—no invented practice tests.</p></section>
-    <section class="resource-panel" id="archive" aria-label="Official examination archive"><span class="section-kicker">Published exam material</span><h2>${year} papers and memorandums</h2>
+    <span class="section-kicker">Verified publisher resources</span><h1>Grade ${grade} ${esc(subject.name)}<br><em style="color:#087e78">Examination Archive.</em></h1>
+    <p>Browse authentic published papers and assessments, clearly identified by type and publisher. No invented practice tests.</p></section>
+    <section class="resource-panel" id="archive" aria-label="Official examination archive"><span class="section-kicker">Published exam material</span><h2>${year} papers and assessment resources</h2>
     <div class="real-year-nav" aria-label="Choose examination year">${YEARS.map(y=>`<button type="button" data-year="${y}" aria-pressed="${y===year}">${y}</button>`).join('')}</div>
     <div id="official-results" role="region" aria-live="polite">Checking the published collection…</div>
     </section><section class="quapture-panel" style="max-width:880px;margin:28px auto 0"><div><span class="panel-kicker">Learn beyond the memo</span><h2>Need help understanding a question?</h2><p>Use <span aria-label="Capture Eye Queue">QuaptureIQ</span> to photograph a question and explore an explanation.</p><div class="panel-actions"><a class="panel-btn" target="_blank" rel="noopener noreferrer" href="${PLAY_URL}">Explore QuaptureIQ ↗</a><a class="panel-link" href="mailto:quaptureiq.reviewer@gmail.com?subject=QuaptureIQ%20tester%20interest">Become a tester</a></div></div><span aria-hidden="true" style="font-size:3rem">📸</span></section>`;
@@ -75,6 +105,7 @@ function render(){
 
 async function loadResults(displayYear){
   const box=document.getElementById('official-results');
+  if(grade>=1&&grade<=8){await loadPrimaryResults(displayYear,box);return;}
   if(grade===9||grade===11){
     try{
       const response=await fetch(new URL('./provincial-exams.json',import.meta.url));
