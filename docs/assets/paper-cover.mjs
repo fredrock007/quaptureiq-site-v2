@@ -40,7 +40,7 @@ export function installCoverStyles(){
  * generated catalogue graphic using title/year data, not a PDF page copy. */
 export function paperCover({grade,year,subject,title,kind,url}){
   if(kind==='supplement'||/\.zip(?:[?#]|$)/i.test(url||'')) return '';
-  const type=kind==='memo'?'MEMO':'PAPER';
+  const type=kind==='memo'?'MEMO':kind==='exemplar'?'EXEMPLAR':'PAPER';
   const subj=short(subject,35);
   return `<a class="fred-paper-cover" href="${esc(url)}" target="_blank" rel="noopener noreferrer" aria-label="Open original ${esc(title)} PDF from its publisher" title="Tap to open the original document"><span class="fred-cover-kicker">FredRock paper index</span><span class="fred-cover-grade">GRADE ${esc(grade)}<br>${esc(year)}</span><span class="fred-cover-title">${esc(subj)}<br>${esc(short(title,48))}</span><span class="fred-cover-lines" aria-hidden="true"></span><span class="fred-cover-bottom"><span>↗ OPEN PDF</span><b>${type}</b></span></a>`;
 }
